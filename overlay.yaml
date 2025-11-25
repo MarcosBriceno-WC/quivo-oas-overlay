@@ -1,0 +1,468 @@
+overlay: 1.0.0
+info:
+  title: Quivo API Overlay
+  version: 1.0.0
+actions:
+- target: $.info
+  update:
+    description: Enhanced Quivo API documentation with additional descriptions and
+      examples
+- target: $.paths./addresses/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./addresses/{sellerId}.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./addresses/{sellerId}/default/{defaultAddressType}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./addresses/{sellerId}/default/{defaultAddressType}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./addresses/{sellerId}/default/{defaultAddressType}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./addresses/{sellerId}/{addressId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./addresses/{sellerId}/{addressId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./apiKeyRequests.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./apiKeyRequests/{sellerId}.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{articleId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/identifier/{articleIdentifier}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/validate.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}/images.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}/images/upload.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}/images/{uuid}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./articles/{sellerId}/{articleId}/validate.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./audits.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./bundles.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./bundles/{sellerId}.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./bundles/{sellerId}/{bundleId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./bundles/{sellerId}/{bundleId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./bundles/{sellerId}/{bundleId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./carriers.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./contacts/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./contacts/{sellerId}.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./contacts/{sellerId}/{contactId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./contacts/{sellerId}/{contactId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./countries.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./currencies.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./currencies/exchangeRates.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries/attachments.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries/{customerInquiryId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries/{customerInquiryId}/messages.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries/{customerInquiryId}/ratings.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./customerInquiries/{customerInquiryId}/resolve.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./dashboards.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./dashboards.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./files.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/preview.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/skuAddition.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/skuFork.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/skuMapping.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/skuRemoval.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/{planWhenId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./fulfillmentPlans/{sellerId}/{planWhenId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./inbounds.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./inbounds.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./inbounds/{inboundId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./inbounds/{inboundId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./inbounds/{inboundId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./inbounds/{inboundId}/validate.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/itemHistories/{warehouseId}/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/seller/{sellerId}/refresh.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/{itemId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/{itemId}/movements.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/{itemId}/refresh.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/{warehouseId}/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./items/{warehouseId}/{sellerId}/storages.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./languages.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/id/{notificationId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/id/{notificationId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/id/{notificationId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/notificationTypes.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/test-email.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/{hash}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/{hash}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/{hash}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/{notificationId}/seen.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./notifications/{sellerId}/notificationTypes.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/attachments/upload.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/entry/sellersWarehouses.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/entry/{sellerId}/countries.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/entry/{sellerId}/{warehouseId}/countries.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/extract.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}.patch
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/address.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/attachments.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/attachments/upload.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/attachments/{attachmentId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/attachments/{attachmentId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/cancelRequest.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/confirmFulfillment.patch
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/planFulfillment.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/planFulfillmentAsync.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/refetch.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/refetchOrderAttachments.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/refetchOrderLines.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/removePIIData.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./orders/{orderId}/removePIIDataAsync.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./ping.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnApp/book.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnApp/{hash}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnLinks.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnLinks.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnLinks/{returnLinkId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnLinks/{returnLinkId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returnLinks/{returnLinkId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returns.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returns/{returnShipmentId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./returns/{returnShipmentId}.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./sellers.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./sellers/{id}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./sellers/{id}/logos.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./sellers/{id}/logos/upload.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/attachments/upload.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/book.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/bookBatchAsync.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/bookShopAsync.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/documentLink.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/estimate.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/pickups.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/pickups.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/{bookedShipmentId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shipments/{bookedShipmentId}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shippingServiceGroups.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shippingServiceGroups/countries/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shippingServiceGroups/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shops.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shops/authorize.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./shops/{shopId}/orders.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./status.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./storedAddresses.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./storedAddresses/{id}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./subscriptionPackages.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./subscriptionPackages/{sellerId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./subscriptions.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./subscriptions.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./subscriptions/{uuid}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./subscriptions/{uuid}.delete
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./track/gwc/shipsy/{trackingNumber}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./transports.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./transports.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./transports/{transportId}.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./users/link.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./users/{username}/mfa.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./users/{username}/resetPassword.post
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./users/{username}/sync.put
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
+- target: $.paths./warehouses.get
+  update:
+    description: ADD ENDPOINT DESCRIPTION HERE
