@@ -21,12 +21,12 @@ class OverlayProcessor:
 
     def apply(self) -> Dict[str, Any]:
         """Apply all overlay actions to the OpenAPI specification."""
-        actions = self.overlay_spec.get('actions', [])
+        actions = self.overlay_spec.get("actions", [])
 
         for action in actions:
-            target = action.get('target')
-            update = action.get('update')
-            remove = action.get('remove')
+            target = action.get("target")
+            update = action.get("update")
+            remove = action.get("remove")
 
             if not target:
                 continue
@@ -64,7 +64,7 @@ class OverlayProcessor:
         Supports basic JSONPath syntax like $.paths./endpoint.get
         """
         # Remove leading $. if present
-        if target.startswith('$.'):
+        if target.startswith("$."):
             target = target[2:]
 
         # Split the path
@@ -105,19 +105,19 @@ class OverlayProcessor:
         while i < len(path):
             char = path[i]
 
-            if char == '[':
+            if char == "[":
                 if current:
                     parts.append(current)
                     current = ""
                 in_bracket = True
-            elif char == ']':
+            elif char == "]":
                 in_bracket = False
                 if current:
                     # Remove quotes if present
-                    current = current.strip('\'"')
+                    current = current.strip("'\"")
                     parts.append(current)
                     current = ""
-            elif char == '.' and not in_bracket:
+            elif char == "." and not in_bracket:
                 if current:
                     parts.append(current)
                     current = ""
@@ -143,32 +143,36 @@ def download_openapi_spec(url: str) -> Dict[str, Any]:
 def load_overlay(file_path: str) -> Dict[str, Any]:
     """Load overlay specification from YAML file."""
     print(f"Loading overlay from {file_path}...")
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
 def save_openapi_spec(spec: Dict[str, Any], output_path: str):
     """Save the modified OpenAPI specification."""
     print(f"Saving result to {output_path}...")
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(spec, f, indent=2)
 
 
 def main():
     """Main execution function."""
     # Configuration
-    OPENAPI_URL = "https://s3-eu-west-1.amazonaws.com/quivo-connector-prod-api-docs/swagger.json"
+    OPENAPI_URL = (
+        "https://s3-eu-west-1.amazonaws.com/quivo-connector-prod-api-docs/swagger.json"
+    )
     OVERLAY_FILE = "overlay.yaml"
-    OUTPUT_FILE = "openapi-enhanced.json"
+    OUTPUT_FILE = "openapi.json"
 
     try:
         # Step 1: Download OpenAPI spec
         openapi_spec = download_openapi_spec(OPENAPI_URL)
-        print(f"[OK] Downloaded OpenAPI spec (version: {openapi_spec.get('openapi', openapi_spec.get('swagger'))})")
+        print(
+            f"[OK] Downloaded OpenAPI spec (version: {openapi_spec.get('openapi', openapi_spec.get('swagger'))})"
+        )
 
         # Step 2: Load overlay
         overlay_spec = load_overlay(OVERLAY_FILE)
-        overlay_version = overlay_spec.get('overlay', 'unknown')
+        overlay_version = overlay_spec.get("overlay", "unknown")
         print(f"[OK] Loaded overlay specification (version: {overlay_version})")
 
         # Step 3: Apply overlay
@@ -181,9 +185,9 @@ def main():
         save_openapi_spec(enhanced_spec, OUTPUT_FILE)
         print(f"[OK] Successfully saved enhanced OpenAPI spec to {OUTPUT_FILE}")
 
-        print("\n" + "="*50)
+        print("\n" + "=" * 50)
         print("Process completed successfully!")
-        print("="*50)
+        print("=" * 50)
 
     except requests.RequestException as e:
         print(f"Error downloading OpenAPI spec: {e}", file=sys.stderr)
