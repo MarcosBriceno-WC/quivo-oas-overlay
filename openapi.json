@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "6300afb, 2025-11-21T09:20:25Z",
+    "version": "b99f18b, 2025-11-26T08:43:23Z",
     "title": "Connector",
     "description": "Enhanced Quivo API documentation with additional descriptions and examples"
   },
@@ -6731,29 +6731,21 @@
     "AddressDetail": {
       "type": "object",
       "properties": {
-        "name1": {
+        "name": {
           "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - name1"
-        },
-        "name2": {
-          "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - name2"
+          "description": "The first and lastname. <br>Either name or company is required."
         },
         "company": {
           "type": "string",
           "description": "ADD PROPERTY DESCRIPTION HERE - company"
         },
-        "address1": {
+        "phone": {
           "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - address1"
+          "description": "ADD PROPERTY DESCRIPTION HERE - phone"
         },
-        "address2": {
+        "email": {
           "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - address2"
-        },
-        "address3": {
-          "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - address3"
+          "description": "ADD PROPERTY DESCRIPTION HERE - email"
         },
         "zip": {
           "type": "string",
@@ -6767,17 +6759,41 @@
           "type": "string",
           "description": "ADD PROPERTY DESCRIPTION HERE - state"
         },
-        "country": {
+        "countryIso2": {
           "type": "string",
+          "description": "Country. <br>This field is optional."
+        },
+        "street": {
+          "type": "string",
+          "description": "Street (or Address Line 1). <br>This field is optional."
+        },
+        "street2": {
+          "type": "string",
+          "description": "Street (or Address Line 2). <br>This field is optional."
+        },
+        "addressIdentifier": {
+          "type": "string",
+          "description": "Optional identifier for address. <br>This field is optional.",
+          "minLength": 0,
+          "maxLength": 20
+        },
+        "address1": {
+          "description": "ADD PROPERTY DESCRIPTION HERE - address1"
+        },
+        "address2": {
+          "description": "ADD PROPERTY DESCRIPTION HERE - address2"
+        },
+        "address3": {
+          "description": "ADD PROPERTY DESCRIPTION HERE - address3"
+        },
+        "country": {
           "description": "ADD PROPERTY DESCRIPTION HERE - country"
         },
-        "phone": {
-          "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - phone"
+        "name1": {
+          "description": "ADD PROPERTY DESCRIPTION HERE - name1"
         },
-        "email": {
-          "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - email"
+        "name2": {
+          "description": "ADD PROPERTY DESCRIPTION HERE - name2"
         }
       },
       "description": "ADD SCHEMA DESCRIPTION HERE - AddressDetail"
@@ -9032,6 +9048,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "messageKey": {
+          "type": "string"
         }
       },
       "description": "ADD SCHEMA DESCRIPTION HERE - BookResponse"
@@ -9911,6 +9930,10 @@
           "format": "int32",
           "description": "ADD PROPERTY DESCRIPTION HERE - numericCode"
         },
+        "symbol": {
+          "type": "string",
+          "description": "ADD PROPERTY DESCRIPTION HERE - symbol"
+        },
         "numericCodeAsString": {
           "type": "string",
           "description": "ADD PROPERTY DESCRIPTION HERE - numericCodeAsString"
@@ -9918,10 +9941,6 @@
         "displayName": {
           "type": "string",
           "description": "ADD PROPERTY DESCRIPTION HERE - displayName"
-        },
-        "symbol": {
-          "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - symbol"
         }
       },
       "description": "ADD SCHEMA DESCRIPTION HERE - Currency"
@@ -10515,7 +10534,9 @@
       "properties": {
         "description": {
           "type": "string",
-          "description": "ADD PROPERTY DESCRIPTION HERE - description"
+          "description": "ADD PROPERTY DESCRIPTION HERE - description",
+          "minLength": 0,
+          "maxLength": 255
         },
         "quantity": {
           "type": "integer",
@@ -10806,6 +10827,10 @@
         "unNumber": {
           "type": "string",
           "description": "ADD PROPERTY DESCRIPTION HERE - unNumber"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Optional value. The barcode of the position."
         }
       },
       "description": "ADD SCHEMA DESCRIPTION HERE - CustomsPosition"
@@ -12922,10 +12947,6 @@
     "JsonNode": {
       "type": "object",
       "properties": {
-        "short": {
-          "type": "boolean",
-          "description": "ADD PROPERTY DESCRIPTION HERE - short"
-        },
         "float": {
           "type": "boolean",
           "description": "ADD PROPERTY DESCRIPTION HERE - float"
@@ -12945,6 +12966,10 @@
           ],
           "description": "ADD PROPERTY DESCRIPTION HERE - nodeType"
         },
+        "short": {
+          "type": "boolean",
+          "description": "ADD PROPERTY DESCRIPTION HERE - short"
+        },
         "number": {
           "type": "boolean",
           "description": "ADD PROPERTY DESCRIPTION HERE - number"
@@ -12953,13 +12978,13 @@
           "type": "boolean",
           "description": "ADD PROPERTY DESCRIPTION HERE - binary"
         },
-        "integralNumber": {
-          "type": "boolean",
-          "description": "ADD PROPERTY DESCRIPTION HERE - integralNumber"
-        },
         "boolean": {
           "type": "boolean",
           "description": "ADD PROPERTY DESCRIPTION HERE - boolean"
+        },
+        "integralNumber": {
+          "type": "boolean",
+          "description": "ADD PROPERTY DESCRIPTION HERE - integralNumber"
         },
         "double": {
           "type": "boolean",
