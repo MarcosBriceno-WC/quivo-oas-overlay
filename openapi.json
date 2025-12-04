@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Connector",
-    "version": "4cce705, 2025-12-01T18:55:40Z",
+    "version": "2b57ed1, 2025-12-02T09:36:35Z",
     "description": "Enhanced Quivo API documentation with additional descriptions and examples"
   },
   "servers": [
@@ -6862,27 +6862,31 @@
         "description": "ADD SCHEMA DESCRIPTION HERE - AddressData"
       },
       "AddressDetail": {
-        "required": [
-          "city",
-          "street"
-        ],
         "type": "object",
         "properties": {
-          "name": {
+          "name1": {
             "type": "string",
-            "description": "Name of the recipient. <br>Usually this is the first and lastname of the recipient."
+            "description": "ADD PROPERTY DESCRIPTION HERE - name1"
+          },
+          "name2": {
+            "type": "string",
+            "description": "ADD PROPERTY DESCRIPTION HERE - name2"
           },
           "company": {
             "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - company"
           },
-          "phone": {
+          "address1": {
             "type": "string",
-            "description": "ADD PROPERTY DESCRIPTION HERE - phone"
+            "description": "ADD PROPERTY DESCRIPTION HERE - address1"
           },
-          "email": {
+          "address2": {
             "type": "string",
-            "description": "ADD PROPERTY DESCRIPTION HERE - email"
+            "description": "ADD PROPERTY DESCRIPTION HERE - address2"
+          },
+          "address3": {
+            "type": "string",
+            "description": "ADD PROPERTY DESCRIPTION HERE - address3"
           },
           "zip": {
             "type": "string",
@@ -6896,34 +6900,17 @@
             "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - state"
           },
-          "countryIso2": {
-            "type": "string"
-          },
-          "street": {
-            "type": "string",
-            "description": "Street (or Address Line 1) of the recipient. <br>This field should always be specified."
-          },
-          "street2": {
-            "type": "string",
-            "description": "Street (or Address Line 2) of the recipient. <br>This field is optional."
-          },
-          "address1": {
-            "description": "ADD PROPERTY DESCRIPTION HERE - address1"
-          },
-          "address2": {
-            "description": "ADD PROPERTY DESCRIPTION HERE - address2"
-          },
-          "address3": {
-            "description": "ADD PROPERTY DESCRIPTION HERE - address3"
-          },
           "country": {
+            "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - country"
           },
-          "name1": {
-            "description": "ADD PROPERTY DESCRIPTION HERE - name1"
+          "phone": {
+            "type": "string",
+            "description": "ADD PROPERTY DESCRIPTION HERE - phone"
           },
-          "name2": {
-            "description": "ADD PROPERTY DESCRIPTION HERE - name2"
+          "email": {
+            "type": "string",
+            "description": "ADD PROPERTY DESCRIPTION HERE - email"
           }
         },
         "description": "ADD SCHEMA DESCRIPTION HERE - AddressDetail"
@@ -9178,6 +9165,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "messageKey": {
+            "type": "string"
           }
         },
         "description": "ADD SCHEMA DESCRIPTION HERE - BookResponse"
@@ -10067,13 +10057,13 @@
             "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - displayName"
           },
-          "numericCodeAsString": {
-            "type": "string",
-            "description": "ADD PROPERTY DESCRIPTION HERE - numericCodeAsString"
-          },
           "symbol": {
             "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - symbol"
+          },
+          "numericCodeAsString": {
+            "type": "string",
+            "description": "ADD PROPERTY DESCRIPTION HERE - numericCodeAsString"
           }
         },
         "description": "ADD SCHEMA DESCRIPTION HERE - Currency"
@@ -10666,6 +10656,8 @@
         "type": "object",
         "properties": {
           "description": {
+            "maxLength": 255,
+            "minLength": 0,
             "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - description"
           },
@@ -10958,6 +10950,10 @@
           "unNumber": {
             "type": "string",
             "description": "ADD PROPERTY DESCRIPTION HERE - unNumber"
+          },
+          "barcode": {
+            "type": "string",
+            "description": "Optional value. The barcode of the position."
           }
         },
         "description": "ADD SCHEMA DESCRIPTION HERE - CustomsPosition"
@@ -13078,10 +13074,6 @@
             "type": "boolean",
             "description": "ADD PROPERTY DESCRIPTION HERE - float"
           },
-          "short": {
-            "type": "boolean",
-            "description": "ADD PROPERTY DESCRIPTION HERE - short"
-          },
           "nodeType": {
             "type": "string",
             "enum": [
@@ -13100,6 +13092,10 @@
           "binary": {
             "type": "boolean",
             "description": "ADD PROPERTY DESCRIPTION HERE - binary"
+          },
+          "short": {
+            "type": "boolean",
+            "description": "ADD PROPERTY DESCRIPTION HERE - short"
           },
           "number": {
             "type": "boolean",
