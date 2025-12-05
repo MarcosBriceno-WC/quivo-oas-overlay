@@ -27,7 +27,7 @@
           {
             "group": "Essentials",
             "pages": [
-              "essentials/authentication"
+              "docs/guides/authentication"
             ]
           },
           {
