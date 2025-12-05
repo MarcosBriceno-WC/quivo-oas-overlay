@@ -1811,12 +1811,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/customerInquiries/attachments": {
@@ -2599,12 +2594,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/inbounds/{inboundId}": {
@@ -3480,12 +3470,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/notifications/{hash}": {
@@ -3747,12 +3732,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/orders/attachments/upload": {
@@ -3930,12 +3910,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/orders/{orderId}": {
@@ -4579,12 +4554,7 @@
             }
           }
         },
-        "x-codegen-request-body-name": "body",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "x-codegen-request-body-name": "body"
       }
     },
     "/returnApp/{hash}": {
@@ -4717,12 +4687,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/returnLinks/{returnLinkId}": {
@@ -5301,12 +5266,7 @@
             }
           }
         },
-        "x-codegen-request-body-name": "body",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "x-codegen-request-body-name": "body"
       }
     },
     "/shipments/bookBatchAsync": {
@@ -5333,12 +5293,7 @@
             "content": {}
           }
         },
-        "x-codegen-request-body-name": "body",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "x-codegen-request-body-name": "body"
       }
     },
     "/shipments/bookShopAsync": {
@@ -5365,12 +5320,7 @@
             "content": {}
           }
         },
-        "x-codegen-request-body-name": "body",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "x-codegen-request-body-name": "body"
       }
     },
     "/shipments/documentLink": {
@@ -5436,12 +5386,7 @@
             }
           }
         },
-        "x-codegen-request-body-name": "body",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "x-codegen-request-body-name": "body"
       }
     },
     "/shipments/pickups": {
@@ -5535,12 +5480,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/shipments/{bookedShipmentId}": {
@@ -5903,12 +5843,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/shops/{shopId}/orders": {
@@ -6190,12 +6125,7 @@
             }
           }
         },
-        "x-codegen-request-body-name": "body",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "x-codegen-request-body-name": "body"
       }
     },
     "/subscriptions/{uuid}": {
@@ -6380,12 +6310,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/transports/{transportId}": {
@@ -6446,12 +6371,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
-        "parameters": {
-          "0": {
-            "description": "ADD PARAMETER DESCRIPTION HERE - body"
-          }
-        }
+        "description": "ADD ENDPOINT DESCRIPTION HERE"
       }
     },
     "/users/{username}/mfa": {
