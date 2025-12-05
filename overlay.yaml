@@ -466,10 +466,6 @@ actions:
 - target: $.paths./warehouses.get
   update:
     description: ADD ENDPOINT DESCRIPTION HERE
-    
-- target: $.paths./addresses/{sellerId}.get.parameters[0]
-  update:
-    description: ADD PARAMETER DESCRIPTION HERE - sellerId
 
 - target: $.paths./addresses/{sellerId}.get.responses.200
   update:
@@ -478,3 +474,20 @@ actions:
 - target: $.components.schemas.AddSkuAdditionRequest
   update:
     description: ADD SCHEMA DESCRIPTION HERE - AddSkuAdditionRequest
+
+# Reusable parameter descriptions using filter expressions
+- target: $.paths.*[?(@.parameters[?(@.name == 'sellerId')])]
+  update:
+    description: "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
+
+- target: $.paths.*[?(@.parameters[?(@.name == 'orderId')])]
+  update:
+    description: "The unique identifier for an order."
+
+- target: $.paths.*[?(@.parameters[?(@.name == 'warehouseId')])]
+  update:
+    description: "The unique identifier for the warehouse location where items are stored and orders are fulfilled."
+
+- target: $.paths.*[?(@.parameters[?(@.name == 'articleId')])]
+  update:
+    description: "The unique identifier for an article (product/SKU) in the system."

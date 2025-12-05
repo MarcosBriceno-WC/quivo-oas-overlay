@@ -3,7 +3,8 @@
     "allow": [
       "Bash(pip install:*)",
       "Bash(python apply_overlay.py:*)",
-      "Bash(python -c:*)"
+      "Bash(python -c:*)",
+      "Bash(python3:*)"
     ],
     "deny": [],
     "ask": []
