@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "mintlify-quivo",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#141414",
+    "light": "#FF5635",
+    "dark": "#FF5635"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -16,7 +16,6 @@
           {
             "group": "Quivo Documentation Hub",
             "pages": [
-              "index"
             ]
           },
           {
@@ -28,7 +27,7 @@
           {
             "group": "Essentials",
             "pages": [
-              "essentials/authentication"
+              "docs/guides/authentication"
             ]
           },
           {

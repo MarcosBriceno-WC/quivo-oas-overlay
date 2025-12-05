@@ -134,8 +134,7 @@
               "type": "integer",
               "format": "int64"
             },
-            "$ref": "#/components/parameters/sellerIdParam",
-            "description": "ADD PARAMETER DESCRIPTION HERE - sellerId"
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -170,7 +169,7 @@
               "type": "integer",
               "format": "int64"
             },
-            "$ref": "#/components/parameters/sellerIdParam"
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -214,7 +213,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "defaultAddressType",
@@ -258,7 +258,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "defaultAddressType",
@@ -313,7 +314,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "defaultAddressType",
@@ -353,7 +355,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "addressId",
@@ -404,7 +407,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "addressId",
@@ -504,7 +508,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -601,7 +606,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           }
         ],
         "responses": {
@@ -634,7 +640,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -678,7 +685,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleIdentifier",
@@ -719,7 +727,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -763,7 +772,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -772,7 +782,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           }
         ],
         "responses": {
@@ -803,7 +814,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -812,7 +824,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           }
         ],
         "requestBody": {
@@ -854,7 +867,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -863,7 +877,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           }
         ],
         "responses": {
@@ -896,7 +911,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -905,7 +921,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           }
         ],
         "requestBody": {
@@ -949,7 +966,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -958,7 +976,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           },
           {
             "name": "mimeType",
@@ -998,7 +1017,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -1007,7 +1027,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           },
           {
             "name": "uuid",
@@ -1042,7 +1063,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "articleId",
@@ -1051,7 +1073,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an article (product/SKU) in the system."
           }
         ],
         "requestBody": {
@@ -1224,7 +1247,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -1268,7 +1292,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "bundleId",
@@ -1308,7 +1333,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "bundleId",
@@ -1359,7 +1385,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "bundleId",
@@ -1426,7 +1453,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -1460,7 +1488,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -1504,7 +1533,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "contactId",
@@ -1555,7 +1585,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "contactId",
@@ -1965,7 +1996,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "warehouse",
@@ -2059,7 +2091,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -2093,7 +2126,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -2137,7 +2171,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -2184,7 +2219,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -2222,7 +2258,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -2260,7 +2297,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -2298,7 +2336,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "requestBody": {
@@ -2337,7 +2376,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "planWhenId",
@@ -2387,7 +2427,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "planWhenId",
@@ -2717,7 +2758,7 @@
           {
             "name": "warehouseId",
             "in": "path",
-            "description": "Warehouse ID",
+            "description": "The unique identifier for the warehouse location where items are stored and orders are fulfilled.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2727,7 +2768,7 @@
           {
             "name": "sellerId",
             "in": "path",
-            "description": "Seller ID",
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2820,7 +2861,7 @@
           {
             "name": "sellerId",
             "in": "path",
-            "description": "Seller ID",
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2978,7 +3019,7 @@
           {
             "name": "warehouseId",
             "in": "path",
-            "description": "Warehouse ID",
+            "description": "The unique identifier for the warehouse location where items are stored and orders are fulfilled.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -2988,7 +3029,7 @@
           {
             "name": "sellerId",
             "in": "path",
-            "description": "Seller ID",
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -3067,7 +3108,7 @@
           {
             "name": "warehouseId",
             "in": "path",
-            "description": "Warehouse ID",
+            "description": "The unique identifier for the warehouse location where items are stored and orders are fulfilled.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -3077,7 +3118,7 @@
           {
             "name": "sellerId",
             "in": "path",
-            "description": "Seller ID",
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -3489,7 +3530,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -3679,7 +3721,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -3715,7 +3758,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "warehouseId",
@@ -3724,7 +3768,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the warehouse location where items are stored and orders are fulfilled."
           }
         ],
         "responses": {
@@ -3795,7 +3840,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -3826,7 +3872,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "requestBody": {
@@ -3864,7 +3911,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           },
           {
             "name": "type",
@@ -3911,7 +3959,7 @@
           {
             "name": "orderId",
             "in": "path",
-            "description": "Id of the order to which the attachment should be added",
+            "description": "The unique identifier for an order.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -3956,7 +4004,7 @@
           {
             "name": "orderId",
             "in": "path",
-            "description": "Id of the order to which the attachment should be uploaded",
+            "description": "The unique identifier for an order.",
             "required": true,
             "schema": {
               "type": "integer",
@@ -4001,7 +4049,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           },
           {
             "name": "attachmentId",
@@ -4052,7 +4101,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           },
           {
             "name": "attachmentId",
@@ -4089,7 +4139,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4115,7 +4166,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "requestBody": {
@@ -4153,7 +4205,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4180,7 +4233,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4207,7 +4261,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4240,7 +4295,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4273,7 +4329,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4308,7 +4365,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -4341,7 +4399,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for an order."
           }
         ],
         "responses": {
@@ -5449,7 +5508,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -5485,7 +5545,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           },
           {
             "name": "showDeleted",
@@ -5848,7 +5909,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "description": "The unique identifier for the seller account. This ID is used to scope operations to a specific seller's data and resources."
           }
         ],
         "responses": {
@@ -16952,20 +17014,6 @@
               "OZ"
             ]
           }
-        }
-      }
-    },
-    "parameters": {
-      "sellerIdParam": {
-        "description": "NEW DESCRIPTION FOR sellerId"
-      },
-      "warehouseIdParam": {
-        "name": "warehouseId",
-        "in": "path",
-        "description": "The unique identifier for the warehouse location.",
-        "required": true,
-        "schema": {
-          "type": "string"
         }
       }
     }

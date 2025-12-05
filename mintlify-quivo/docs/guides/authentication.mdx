@@ -1,12 +1,11 @@
 ---
 title: Authentication
-description: Learn how to authenticate your requests to the Quivo API
+ogdescription: Learn how to authenticate your requests to the Quivo API
 ---
 
-All requests to the Quivo API require authentication using a session token. This guide explains how to obtain and use this token.
-
-**Time to complete:** 5 minutes  
-**API Version:** v1 (Connector)
+All requests to the Quivo API require authentication using a session token. This article will guide you trough:
+1. Obtaining a session token.
+2. Using a session token to authenticate requests.
 
 ## Prerequisites
 
@@ -53,8 +52,8 @@ curl -X GET "${BASE_URL}/orders" \
   -H "Content-Type: application/json"
 ```
 
-<Tip>
-  **Best Practice:** Automate token refreshing. Because the token expires after one hour, your integration should verify the API response. If you receive a 401 Unauthorized error, your script should automatically repeat the login step to generate a new token.
+<Tip >
+  Since tokens expire after one hour, your integration should verify the API response. If you receive a 401 Unauthorized error, your script should automatically repeat the login step to generate a new token.
 </Tip>
 
 ## Token expiration
