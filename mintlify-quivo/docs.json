@@ -22,7 +22,11 @@
           {
             "group": "Quickstart",
             "pages": [
-              "essentials/settings"
+              "docs/main-flow/create-order",
+              "docs/main-flow/track-order",
+              "docs/main-flow/manage-returns",
+              "docs/main-flow/manage-webhooks",
+              "docs/main-flow/send-inventory"
             ]
           }
         ]
@@ -37,13 +41,11 @@
             ]
           },
           {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
+            "group": "Endpoints",
+            "openapi": {
+              "source": "/openapi.json",
+              "directory": "api"
+            }
           }
         ]
       }
