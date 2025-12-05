@@ -134,6 +134,7 @@
               "type": "integer",
               "format": "int64"
             },
+            "$ref": "#/components/parameters/sellerIdParam",
             "description": "ADD PARAMETER DESCRIPTION HERE - sellerId"
           }
         ],
@@ -168,7 +169,8 @@
             "schema": {
               "type": "integer",
               "format": "int64"
-            }
+            },
+            "$ref": "#/components/parameters/sellerIdParam"
           }
         ],
         "requestBody": {
@@ -16950,6 +16952,20 @@
               "OZ"
             ]
           }
+        }
+      }
+    },
+    "parameters": {
+      "sellerIdParam": {
+        "description": "NEW DESCRIPTION FOR sellerId"
+      },
+      "warehouseIdParam": {
+        "name": "warehouseId",
+        "in": "path",
+        "description": "The unique identifier for the warehouse location.",
+        "required": true,
+        "schema": {
+          "type": "string"
         }
       }
     }

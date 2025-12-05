@@ -1,6 +1,7 @@
 """
 OpenAPI Overlay Application Script
 Downloads an OpenAPI specification and applies overlay transformations.
+Supports advanced JSONPath filter expressions for bulk updates on parameters.
 """
 
 import json
@@ -8,6 +9,7 @@ import requests
 import yaml
 from typing import Any, Dict, List
 import sys
+import re
 
 
 class OverlayProcessor:
@@ -38,18 +40,22 @@ class OverlayProcessor:
 
     def _apply_update(self, target: str, update: Dict[str, Any]):
         """Apply an update action to the target path."""
-        # Parse JSONPath-like target
-        obj = self._resolve_target(target)
+        # Check if target contains filter expressions
+        if self._is_filter_expression(target):
+            self._apply_filter_update(target, update)
+        else:
+            # Parse JSONPath-like target
+            obj = self._resolve_target(target)
 
-        if obj is not None:
-            if isinstance(obj, dict):
-                obj.update(update)
-            elif isinstance(obj, list):
-                # For list updates, append or extend
-                if isinstance(update, list):
-                    obj.extend(update)
-                else:
-                    obj.append(update)
+            if obj is not None:
+                if isinstance(obj, dict):
+                    obj.update(update)
+                elif isinstance(obj, list):
+                    # For list updates, append or extend
+                    if isinstance(update, list):
+                        obj.extend(update)
+                    else:
+                        obj.append(update)
 
     def _apply_remove(self, target: str, remove: bool):
         """Apply a remove action to the target path."""
@@ -127,6 +133,68 @@ class OverlayProcessor:
 
         return parts
 
+    def _is_filter_expression(self, target: str) -> bool:
+        """Check if the target contains JSONPath filter expressions."""
+        return '?(@.' in target or '[*]' in target or '.*' in target
+
+    def _apply_filter_update(self, target: str, update: Dict[str, Any]):
+        """Apply updates to all paths matching a filter expression."""
+        # Parse the filter expression
+        # Example: $.paths.*[?(@.parameters[?(@.name == 'sellerId')])]
+
+        # Extract the base path and filter
+        match = re.match(r'\$\.paths\.\*\[\?\(@\.parameters\[\?\(@\.name == [\'"](.+?)[\'"]\)\]\)\]', target)
+
+        if match:
+            param_name = match.group(1)
+            # Find all matching parameter paths
+            targets = find_parameter_paths(self.openapi_spec, param_name)
+
+            print(f"  Filter expression matched {len(targets)} parameters for '{param_name}'")
+
+            for target_info in targets:
+                # Apply update to each matching parameter
+                obj = self._resolve_target(target_info['target'])
+                if obj is not None and isinstance(obj, dict):
+                    obj.update(update)
+            return
+
+        # Handle more generic filter patterns
+        # Example: $.paths.*.get.parameters[?(@.name == 'sellerId')]
+        match = re.match(r'\$\.paths\.(.+?)\.(.+?)\.parameters\[\?\(@\.name == [\'"](.+?)[\'"]\)\]', target)
+
+        if match:
+            path_pattern = match.group(1)
+            method_pattern = match.group(2)
+            param_name = match.group(3)
+
+            if path_pattern == '*' and method_pattern == '*':
+                # Match all paths and methods
+                targets = find_parameter_paths(self.openapi_spec, param_name)
+            elif path_pattern == '*':
+                # Match all paths with specific method
+                targets = [t for t in find_parameter_paths(self.openapi_spec, param_name)
+                          if t['method'] == method_pattern]
+            elif method_pattern == '*':
+                # Match specific path with all methods
+                targets = [t for t in find_parameter_paths(self.openapi_spec, param_name)
+                          if t['path'] == path_pattern]
+            else:
+                # Match specific path and method
+                targets = [t for t in find_parameter_paths(self.openapi_spec, param_name)
+                          if t['path'] == path_pattern and t['method'] == method_pattern]
+
+            print(f"  Filter expression matched {len(targets)} parameters for '{param_name}'")
+
+            for target_info in targets:
+                obj = self._resolve_target(target_info['target'])
+                if obj is not None and isinstance(obj, dict):
+                    obj.update(update)
+            return
+
+        # If no pattern matched, log warning
+        print(f"  Warning: Could not parse filter expression: {target}", file=sys.stderr)
+
 
 def download_and_convert_spec(url: str) -> Dict[str, Any]:
     """Download and convert OpenAPI specification to OpenAPI 3.0."""
@@ -163,6 +231,40 @@ def save_openapi_spec(spec: Dict[str, Any], output_path: str):
     print(f"Saving result to {output_path}...")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(spec, f, indent=2)
+
+
+def find_parameter_paths(openapi_spec: Dict[str, Any], param_name: str) -> List[Dict[str, Any]]:
+    """Find all paths where a specific parameter appears.
+
+    Used internally by the filter expression processor.
+    """
+    parameter_targets = []
+
+    if 'paths' not in openapi_spec:
+        return parameter_targets
+
+    for path, path_item in openapi_spec['paths'].items():
+        for method in ['get', 'post', 'put', 'delete', 'patch', 'options', 'head', 'trace']:
+            if method not in path_item:
+                continue
+
+            operation = path_item[method]
+            if 'parameters' not in operation:
+                continue
+
+            for idx, param in enumerate(operation['parameters']):
+                # Handle both inline parameters and $ref parameters
+                param_name_check = param.get('name', '')
+                if param_name_check == param_name:
+                    target = f"$.paths.{path}.{method}.parameters[{idx}]"
+                    parameter_targets.append({
+                        'path': path,
+                        'method': method,
+                        'index': idx,
+                        'target': target
+                    })
+
+    return parameter_targets
 
 
 def main():
