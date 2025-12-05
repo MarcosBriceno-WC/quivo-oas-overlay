@@ -5,9 +5,6 @@ description: Programmatically submit a new fulfillment order to the Quivo Connec
 
 By the end of this guide, you have successfully triggered a "Pick & Pack" process in the warehouse for your product.
 
-**Time to complete:** 10 minutes  
-**API Version:** v1 (Connector)
-
 ## Prerequisites
 
 Before you start, make sure you have the following:
@@ -15,14 +12,9 @@ Before you start, make sure you have the following:
 - **Authentication Token:** A valid Bearer token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
 - **Seller ID:** The unique integer ID for your merchant account. Use `GET /sellers` to find it.
 - **Product SKU:** You must have created at least one product in the system via the endpoint `POST /articles` before you can order it.
+- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
-## Conventions
-
-Throughout this guide:
-- Replace `${BASE_URL}` with your environment URL (for example, `https://api.quivo.co` for production or `https://api-sandbox.quivo.co` for sandbox).
-- Replace all placeholders (for example, `<YOUR_SELLER_ID>`, `<YOUR_ORDER_ID>`) with your actual values. IDs and quantities should be integers; all other placeholders should be strings.
-
-## Step 1: Prepare the order payload
+## Prepare the order payload
 
 To create an order, construct a JSON object that matches the `OrderPost` schema.
 
@@ -32,16 +24,6 @@ You must provide four main components in the payload:
 2. **Identifiers:** Unique IDs to track the order and prevent duplicates.
 3. **Recipient:** The destination for the package (`deliveryAddress`).
 4. **Content:** The list of items to ship (`positions`).
-
-### Required fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `sellerId` | Integer | The ID of your merchant account. |
-| `orderIdentifier` | String | A unique ID from your shop (for example, `"SHOPIFY-1001"`). Use this to prevent duplicate orders. |
-| `orderReference` | String | The reference visible to the end customer (for example, `"#DE38678"`). |
-| `deliveryAddress` | Object | Contains `street`, `city`, `countryIso2` (2-letter code), and the recipient's name. |
-| `positions` | Array | A list of items. For each item, you must specify `sku`, `name`, and `quantity`. |
 
 The following example shows a complete order request payload. Replace the placeholder values with your actual data.
 
@@ -75,7 +57,7 @@ The following example shows a complete order request payload. Replace the placeh
 ```
 
 
-## Step 2: Send the request
+## Send the request
 
 Submit the payload to the `/orders` endpoint using `POST` following the example below. You must include both the `X-Api-Key` and the `Authorization` token in your headers.
 
@@ -86,8 +68,6 @@ curl -X POST "${BASE_URL}/orders" \
   -H "Content-Type: application/json" \
   -d '@payload.json'
 ```
-
-## Step 3: Handle the response
 
 When the request succeeds, the API returns a 200 OK status code and an `OrderPostResult` object.
 
@@ -100,19 +80,25 @@ When the request succeeds, the API returns a 200 OK status code and an `OrderPos
 ```
 Capture the `orderId` from the response. You need this ID to track the order status later.
 
-### Common errors
-
-| Status Code | Description | Solution |
-|-------------|-------------|----------|
-| `400 Bad Request` | This error usually indicates a missing required field (for example, you omitted `countryIso2`). | Check your payload against the schema. |
-| `401 Unauthorized` | Your token is invalid or has expired. | Repeat Step 1 to generate a new token. |
-| `404 Not Found` | The `sku` you provided in `positions` does not exist in the warehouse system. | Verify your product list. |
-| `409 Conflict` | An order with this `orderIdentifier` already exists. | Ensure you generate unique identifiers for each new order. |
-
 ## Next steps
 
-Now that you have created the order, the warehouse team receives the Pick & Pack instruction automatically.
+Now that you have created the order, the warehouse team receives the Pick & Pack instruction automatically. Continue with these guides:
 
-- **Track order status:** Use `GET /orders/{orderId}` to monitor when the order status changes to `SHIPPED`.
-- **Manage webhooks:** Set up a subscription to receive automatic notifications when the system generates a tracking number.
+<CardGroup cols={2}>
+  <Card
+    title="Track an Order"
+    icon="location-dot"
+    href="/docs/guides/main-flow/track-order"
+  >
+    Monitor order status and retrieve tracking information when the order is shipped.
+  </Card>
+
+  <Card
+    title="Manage Webhooks"
+    icon="bell"
+    href="/docs/guides/main-flow/manage-webhooks"
+  >
+    Set up webhooks to receive automatic notifications when order status changes or tracking numbers are generated.
+  </Card>
+</CardGroup>
 

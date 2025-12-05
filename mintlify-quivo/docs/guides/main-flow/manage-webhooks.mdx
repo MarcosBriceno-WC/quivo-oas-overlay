@@ -5,8 +5,9 @@ description: Configure and manage event subscriptions via the API
 
 Webhooks allow your system to receive real-time notifications from Quivo. Instead of polling for status changes, Quivo pushes data to your server via an HTTP POST request whenever a specific event occurs.
 
-**Time to complete:** 5 minutes  
-**API Version:** v1 (Connector)
+<Tip>
+  **Return 200 OK immediately:** When your server receives a webhook, acknowledge it immediately with a 200 status code. Perform complex processing (like database updates or sending emails) asynchronously to prevent timeout errors.
+</Tip>
 
 ## Prerequisites
 
@@ -15,14 +16,9 @@ Before you start, ensure you have:
 - **API Credentials:** Your API key and a valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain a session token.
 - **Seller ID:** The unique integer ID for your merchant account.
 - **A Public URL:** A secure endpoint (HTTPS) on your server capable of receiving JSON POST requests.
+- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
-## Conventions
-
-Throughout this guide:
-- Replace `${BASE_URL}` with your environment URL (for example, `https://api.quivo.co` for production or `https://api-sandbox.quivo.co` for sandbox).
-- Replace all placeholders (for example, `<YOUR_SELLER_ID>`, `<YOUR_WEBHOOK_URL>`) with your actual values. IDs should be integers; URLs must be valid HTTPS endpoints; all other placeholders should be strings.
-
-## Step 1: Create a subscription
+## Create a subscription
 
 To start receiving notifications, you must tell Quivo which entity to watch and where to send the data via the `POST /subscriptions` endpoint:
 
@@ -69,7 +65,7 @@ If successful, the API returns the created subscription object with a unique `uu
 }
 ```
 
-## Step 2: List active subscriptions
+## List active subscriptions
 
 To see all webhooks currently configured for your account, use the GET method via the `GET /subscriptions` endpoint:
 
@@ -106,7 +102,7 @@ The response returns an array of all active subscriptions. The following example
 ]
 ```
 
-## Step 3: Delete a subscription
+## Delete a subscription
 
 If you no longer want to receive notifications for a specific event, delete the subscription using its UUID via the `DELETE /subscriptions/{uuid}` endpoint:
 
@@ -120,9 +116,26 @@ curl -X DELETE "${BASE_URL}/subscriptions/<YOUR_SUBSCRIPTION_UUID>" \
 
 The response returns a `200 OK` or `204 No Content` response indicating the webhook was successfully removed.
 
-## Best practices for handling webhooks
 
-- **Return 200 OK immediately:** When your server receives a webhook, acknowledge it immediately with a 200 status code. Perform complex processing (like database updates or sending emails) asynchronously to prevent timeout errors.
-- **Idempotency:** Your system might receive the same webhook event more than once. Ensure your code handles duplicates gracefully (for example, by checking if the `orderId` or event timestamp has already been processed).
-- **Security:** Ensure your endpoint is HTTPS.
+## Next steps
+
+Now that you have configured webhooks, explore these related guides:
+
+<CardGroup cols={2}>
+  <Card
+    title="Track an Order"
+    icon="location-dot"
+    href="/docs/guides/main-flow/track-order"
+  >
+    Verify order status and tracking information that your webhooks are monitoring.
+  </Card>
+
+  <Card
+    title="Create a Fulfillment Order"
+    icon="shopping-cart"
+    href="/docs/guides/main-flow/create-order"
+  >
+    Create orders that will trigger webhook notifications when status changes occur.
+  </Card>
+</CardGroup>
 

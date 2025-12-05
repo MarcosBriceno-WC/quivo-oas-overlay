@@ -5,23 +5,15 @@ description: Retrieve the current status and tracking information for a fulfillm
 
 By the end of this guide, you know how to programmatically check if an order has been shipped and retrieve the carrier's tracking link to share with your customer.
 
-**Time to complete:** 5 minutes  
-**API Version:** v1 (Connector)
-
 ## Prerequisites
 
 Before you start, make sure you have the following:
 
 - **Authentication Token:** A valid Bearer token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
 - **Order ID:** The unique integer `orderId` returned when you created the order.
+- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
-## Conventions
-
-Throughout this guide:
-- Replace `${BASE_URL}` with your environment URL (for example, `https://api.quivo.co` for production or `https://api-sandbox.quivo.co` for sandbox).
-- Replace all placeholders (for example, `<YOUR_ORDER_ID>`, `<QUANTITY>`) with your actual values. IDs and quantities should be integers; all other placeholders should be strings.
-
-## Step 1: Get order details
+## Get order details
 
 To track an order, retrieve its full details using its unique ID via the endpoint: `GET /orders/<YOUR_ORDER_ID>`
 
@@ -33,8 +25,7 @@ curl -X GET "${BASE_URL}/orders/<YOUR_ORDER_ID>" \
   -H "Authorization: <YOUR_SESSION_TOKEN>" \
   -H "Content-Type: application/json"
 ```
-
-## Step 2: Analyze the response
+## Analyze the response
 
 If the request is successful (200 OK), the API returns a JSON object containing the order's current state. Focus on two specific sections: the status and the tracking information.
 
@@ -79,9 +70,25 @@ The following JSON example shows a successful response for a shipped order. Note
 }
 ```
 
+## Next steps
 
-## Troubleshooting
+Now that you can track orders, you can continue with these guides:
 
-- **404 Not Found:** The `orderId` does not exist. Ensure you are using the internal Quivo ID (integer), not your custom `orderIdentifier` string.
-- **Empty tracking array:** If `orderStatus` is `COMPLETED` but `shipmentTracking` is empty, the carrier may not have generated the tracking number yet. Retry the request after a few minutes.
+<CardGroup cols={2}>
+  <Card
+    title="Manage Returns"
+    icon="rotate-left"
+    href="/docs/guides/main-flow/manage-returns"
+  >
+    Generate return labels and track returned items when customers need to send products back.
+  </Card>
+
+  <Card
+    title="Manage Webhooks"
+    icon="bell"
+    href="/docs/guides/main-flow/manage-webhooks"
+  >
+    Automate order tracking by setting up webhooks to receive real-time status updates.
+  </Card>
+</CardGroup>
 

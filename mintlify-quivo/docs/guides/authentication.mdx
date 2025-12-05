@@ -14,12 +14,7 @@ Before you start, make sure you have the following:
 - **API Key:** Your static API key provided by Quivo
 - **Username:** Your Quivo account username
 - **Password:** Your Quivo account password
-
-## Conventions
-
-Throughout this guide:
-- Replace `${BASE_URL}` with your environment URL (for example, `https://api.quivo.co` for production or `https://api-sandbox.quivo.co` for sandbox).
-- Replace all placeholders (for example, `<YOUR_STATIC_API_KEY>`, `<YOUR_USERNAME>`) with your actual values.
+- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
 ## Step 1: Obtain a session token
 
@@ -75,11 +70,23 @@ When you receive a 401 error:
 
 ## Next steps
 
-Now that you understand authentication, you can proceed with other guides:
+Now that you understand authentication, continue with these guides:
 
-- [Create a Fulfillment Order](/docs/main-flow/create-order)
-- [Send Inventory](/docs/main-flow/send-inventory)
-- [Track an Order](/docs/main-flow/track-order)
-- [Manage Returns](/docs/main-flow/manage-returns)
-- [Manage Webhooks](/docs/main-flow/manage-webhooks)
+<CardGroup cols={2}>
+  <Card
+    title="Create a Fulfillment Order"
+    icon="shopping-cart"
+    href="/docs/guides/main-flow/create-order"
+  >
+    Start the fulfillment process by creating orders for your customers.
+  </Card>
+
+  <Card
+    title="Send Inventory"
+    icon="warehouse"
+    href="/docs/guides/main-flow/send-inventory"
+  >
+    Send your products to Quivo warehouses to make them available for fulfillment.
+  </Card>
+</CardGroup>
 

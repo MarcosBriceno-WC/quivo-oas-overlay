@@ -5,9 +5,6 @@ description: Notify the Quivo warehouse that you are sending a shipment of produ
 
 Before you can fulfill orders, you must physically send your products to a Quivo warehouse. This API flow creates an "Inbound" record, alerting the warehouse team to expect your delivery.
 
-**Time to complete:** 10 minutes  
-**API Version:** v1 (Connector)
-
 ## Prerequisites
 
 Before you start, make sure you have the following:
@@ -16,14 +13,9 @@ Before you start, make sure you have the following:
 - **Seller ID:** Your merchant ID. Use `GET /sellers` to find it.
 - **Warehouse ID:** The ID of the specific warehouse you are shipping to. Use `GET /warehouses` to list them.
 - **Product SKUs:** The items you are sending must already exist in the system. Use `GET /articles` to find them.
+- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
-## Conventions
-
-Throughout this guide:
-- Replace `${BASE_URL}` with your environment URL (for example, `https://api.quivo.co` for production or `https://api-sandbox.quivo.co` for sandbox).
-- Replace all placeholders (for example, `<YOUR_SELLER_ID>`, `<YOUR_WAREHOUSE_ID>`) with your actual values. IDs and quantities should be integers; all other placeholders should be strings.
-
-## Step 1: Create the inbound request
+## Create the inbound request
 
 You must tell the warehouse exactly what is coming so they can plan for its arrival using the endpoint: `POST /inbounds`
 
@@ -63,21 +55,7 @@ The following example shows a complete inbound request payload. It includes all 
 }
 ```
 
-### Required fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `sellerId` | Integer | Your merchant ID. |
-| `warehouseId` | Integer | The ID of the destination warehouse. |
-| `deliverySlipNumber` | String | Your internal reference number for this shipment. |
-| `estimatedArrivalTime` | String | Date/Time (ISO 8601) when the truck is expected. |
-| `inboundPositions` | Array | List of items. Must include `sku` and `quantity`. |
-| `deliveryInfo` | Object | High-level summary (for example, `cargoType` like `"CARTON"`, `"PALLET"`, or `"CONTAINER"`). |
-| `shipFrom` | Object | Origin address where the shipment is coming from. |
-| `trackingNumber` | String | Tracking number for the shipment. |
-
-
-### Send the request
+## Send the request
 
 Submit the payload to the `/inbounds` endpoint. You must include both the `X-Api-Key` and the `Authorization` token in your headers. Replace the placeholders with your actual API key and session token.
 
@@ -88,8 +66,6 @@ curl -X POST "${BASE_URL}/inbounds" \
   -H "Content-Type: application/json" \
   -d '@inbound_payload.json'
 ```
-
-## Step 2: Handle the response
 
 A successful request returns a 200 OK status.
 
@@ -105,7 +81,7 @@ A successful request returns a 200 OK status.
   **Important:** Save the `inboundId` returned in the response. You (or your logistics partner) may need to print this ID on the shipping label so the warehouse can identify the boxes when they arrive.
 </Tip>
 
-## Step 3: Track inbound status
+## Track inbound status
 
 Once your shipment arrives, the warehouse team starts scanning the items. You can check the status of this process via the API via the endpoint: `GET /inbounds/{inboundId}`
 
@@ -115,7 +91,7 @@ curl -X GET "${BASE_URL}/inbounds/<YOUR_INBOUND_ID>" \
   -H "Authorization: <YOUR_SESSION_TOKEN>"
 ```
 
-The response returns an `InboundGet` object containing detailed information about the inbound. The following example shows the structure of the response:
+The response returns a `InboundGet` object containing detailed information about the inbound. The following example shows the structure of the response:
 
 ```json
 {
@@ -158,9 +134,24 @@ Look for the `inboundStatus` field in the response to see the current status of 
 - `COMPLETED`: All items are booked into inventory and ready to be sold. If the inbound is completed, you can start the next step to create the order.
 - `CANCELLED`: The inbound has been cancelled.
 
-## Troubleshooting
+## Next steps
 
-- **400 Bad Request:** This error usually indicates a missing required field (for example, you omitted `trackingNumber` or `shipFrom`). Check your payload against the required fields table.
-- **401 Unauthorized:** Your token is invalid or has expired. Repeat the authentication step to generate a new token.
-- **404 Not Found:** The `sku` you provided in `inboundPositions` does not exist in the warehouse system, or the `warehouseId` is invalid. Verify your product list and warehouse IDs.
-- **404 Not Found (GET request):** The `inboundId` does not exist. Ensure you are using the internal Quivo ID (integer) returned from the POST request, not your custom `deliverySlipNumber`.
+Now that you have sent inventory to the warehouse, continue with these guides:
+
+<CardGroup cols={2}>
+  <Card
+    title="Create a Fulfillment Order"
+    icon="shopping-cart"
+    href="/docs/guides/main-flow/create-order"
+  >
+    Once your inventory is processed, create fulfillment orders to start shipping products to customers.
+  </Card>
+
+  <Card
+    title="Track an Order"
+    icon="location-dot"
+    href="/docs/guides/main-flow/track-order"
+  >
+    Monitor order status and retrieve tracking information for shipments.
+  </Card>
+</CardGroup>

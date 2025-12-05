@@ -5,9 +5,6 @@ description: Generate return labels for your customers and track returned items
 
 Handling returns efficiently is crucial for customer satisfaction. This API allows you to programmatically generate a shipping label that your customer can use to send an item back to the Quivo warehouse.
 
-**Time to complete:** 5 minutes  
-**API Version:** v1 (Connector)
-
 ## Prerequisites
 
 Before you start, make sure you have the following:
@@ -15,14 +12,9 @@ Before you start, make sure you have the following:
 - **Authentication Token:** A valid Bearer token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
 - **Seller ID:** The unique integer ID for your merchant account. Use `GET /sellers` to find it.
 - **Shipping Service Group ID:** The ID representing the carrier/service you want to use for the return. Use `GET /shippingServiceGroups` to find it.
+- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
-## Conventions
-
-Throughout this guide:
-- Replace `${BASE_URL}` with your environment URL (for example, `https://api.quivo.co` for production or `https://api-sandbox.quivo.co` for sandbox).
-- Replace all placeholders (for example, `<YOUR_SELLER_ID>`, `<GROSS_WEIGHT_KG>`) with your actual values. IDs and quantities should be integers; numeric values like weights should be numbers (decimals); all other placeholders should be strings.
-
-## Step 1: Book a return label
+## Book a return label
 
 To let a customer return an item, you must generate a shipping label for them via the endpoint: `POST /returnApp/book`
 
@@ -48,7 +40,7 @@ The following example shows a complete return request payload. Replace the place
 ```
 
 
-### Send the request
+## Send the request
 
 Send a POST request to the `/returnApp/book` endpoint with your payload. Include your API key and session token in the headers. Replace the placeholder values with your actual data.
 
@@ -72,7 +64,7 @@ The request should return a 200 OK status code with a response containing the tr
 }
 ```
 
-## Step 2: Track received returns
+## Track received returns
 
 When the package arrives back at the Quivo warehouse, the staff inspects it. You can list all received returns to see their status and condition via the endpoint: `GET /returns`
 
@@ -120,9 +112,25 @@ The response (`ReturnShipmentSummary`) contains critical information for process
 - `customerExamined`: A boolean indicating if the warehouse has finished inspecting the item.
 - `reasonCode` / `classCode`: (If available) Details on why it was returned (for example, `"Damaged"`, `"Wrong Size"`) and its condition (for example, `"A-Stock"`, `"B-Stock"`).
 
-## Troubleshooting
+## Next steps
 
-- **400 Bad Request:** This error usually indicates a missing required field (for example, you omitted `hash`, `grossWeightKG`, or `shipFrom`). Check your payload against the required fields.
-- **401 Unauthorized:** Your token is invalid or has expired. Repeat the authentication step to generate a new token.
-- **404 Not Found:** The `hash` you provided is invalid, or the `returnShipmentId` does not exist. Verify your hash value or ensure you are using the correct return shipment ID.
+Now that you can manage returns, continue with these guides:
+
+<CardGroup cols={2}>
+  <Card
+    title="Track an Order"
+    icon="location-dot"
+    href="/docs/guides/main-flow/track-order"
+  >
+    Check the status of the original order to understand the full fulfillment lifecycle.
+  </Card>
+
+  <Card
+    title="Create a Fulfillment Order"
+    icon="shopping-cart"
+    href="/docs/guides/main-flow/create-order"
+  >
+    Create new orders for replacement items or refund processing.
+  </Card>
+</CardGroup>
 

@@ -33,20 +33,11 @@
           {
             "group": "Quickstart",
             "pages": [
-              "docs/main-flow/create-order",
-              "docs/main-flow/track-order",
-              "docs/main-flow/manage-returns",
-              "docs/main-flow/manage-webhooks",
-              "docs/main-flow/send-inventory"
-            ]
-          },
-          {
-            "group": "How-To Guides",
-            "pages": [
-              "docs/main-flow/send-inventory",
-              "docs/main-flow/create-order",
-              "docs/main-flow/track-order",
-              "docs/main-flow/manage-returns"
+              "docs/guides/main-flow/send-inventory",
+              "docs/guides/main-flow/create-order",
+              "docs/guides/main-flow/track-order",
+              "docs/guides/main-flow/manage-returns",
+              "docs/guides/main-flow/manage-webhooks"
             ]
           }
         ]
