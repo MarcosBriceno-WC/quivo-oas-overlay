@@ -1,0 +1,98 @@
+---
+title: Track an Order
+ogDescription: Retrieve the current status and tracking information for a fulfillment order
+---
+
+This guide shows you how to programmatically check if an order has been shipped and retrieve the carrier's tracking link to share with your customer.
+
+## Prerequisites
+
+Before you start, make sure you have the following:
+
+- **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
+- **Order ID:** The unique integer `orderId` returned when you created the order. Use the [`GET /orders` endpoint](/api-reference/#tag/orders) in the API Reference to find it.
+
+## Retrieve order details
+
+To track an order, retrieve its full details using its unique ID via the [`GET /orders/{orderId}` endpoint](/api-reference/#tag/orders).
+
+A successful request returns a 200 OK status. The response body contains the order's current state. Focus on two specific sections: the status and the tracking information.
+
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X GET "${BASE_URL}/orders/<YOUR_ORDER_ID>" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>"
+    ```
+
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests and replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code.
+
+    ```json
+    {
+      "orderId": <YOUR_ORDER_ID>,
+      "orderIdentifier": "<YOUR_ORDER_IDENTIFIER>",
+      "orderReference": "<YOUR_ORDER_REFERENCE>",
+      "orderStatus": "<ORDER_STATUS>",
+      "orderDate": "<YYYY-MM-DDTHH:mm:ssZ>",
+      "completedAt": "<YYYY-MM-DDTHH:mm:ssZ>",
+      "shippingMethodName": "<SHIPPING_METHOD_NAME>",
+      "shipmentTracking": [
+        {
+          "number": "<TRACKING_NUMBER>",
+          "link": "<TRACKING_LINK>"
+        }
+      ],
+      "positions": [
+        {
+          "sku": "<YOUR_SKU>",
+          "name": "<PRODUCT_NAME>",
+          "quantity": <QUANTITY>
+        }
+      ]
+    }
+    ```
+
+    Locate the `orderStatus` field in the response body. This field indicates where the order is in the fulfillment lifecycle.
+
+    | Status | Description |
+    |--------|-------------|
+    | `PENDING` | The order has been received but processing has not yet started. |
+    | `PROCESSING` | The warehouse is currently picking and packing the items. |
+    | `COMPLETED` | The order has been packed and handed over to the carrier. |
+    | `CANCELLED` | The order was cancelled before fulfillment. |
+
+    Once the status changes to `COMPLETED`, the system generates tracking information. Find this in the `shipmentTracking` array.
+
+    - `number`: The tracking number assigned by the carrier.
+    - `link`: A direct URL to the carrier's tracking page.
+  </Tab>
+</Tabs>
+
+## Next steps
+
+Now that you can track orders, you can continue with these guides:
+
+<CardGroup cols={2}>
+  <Card
+    title="Manage Returns"
+    icon="rotate-left"
+    href="/docs/guides/main-flow/manage-returns"
+  >
+    Generate return labels and track returned items when customers need to send products back.
+  </Card>
+
+  <Card
+    title="Manage Webhooks"
+    icon="bell"
+    href="/docs/guides/main-flow/manage-webhooks"
+  >
+    Automate order tracking by setting up webhooks to receive real-time status updates.
+  </Card>
+</CardGroup>
+

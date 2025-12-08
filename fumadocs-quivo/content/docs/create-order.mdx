@@ -1,0 +1,108 @@
+---
+title: Create a Fulfillment Order
+ogDescription: Programmatically submit a new fulfillment order to the Quivo Connector using the REST API
+---
+
+This guide shows you how to trigger a "Pick & Pack" process in the warehouse for your product.
+
+## Prerequisites
+
+Before you start, make sure you have the following:
+
+- **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
+- **Seller ID:** The unique integer ID for your merchant account. Use the [`GET /sellers` endpoint](/api-reference/#tag/sellers) in the API Reference to find it.
+- **Product SKU:** You must have created at least one product in the system via the [`POST /articles` endpoint](/api-reference/#tag/articles) before you can order it.
+
+## Create the order request
+
+To create an order, construct a JSON object that matches the `OrderPost` schema using the [`POST /orders` endpoint](/api-reference/#tag/orders).
+
+You must provide four main fields in the payload:
+
+1. **Seller Context:** Identifies the merchant account (`sellerId`).
+2. **Order Identifiers:** Unique IDs to track the order and prevent duplicates (`orderIdentifier` and `orderReference`).
+3. **Delivery Address:** The destination for the package (`deliveryAddress`).
+4. **Order Positions:** The list of items to ship (`positions`), including SKUs, names, and quantities.
+
+The following example shows an order payload with all required fields:
+
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X POST "${BASE_URL}/orders" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "sellerId": <YOUR_SELLER_ID>,
+        "orderIdentifier": "<YOUR_ORDER_IDENTIFIER>",
+        "orderReference": "<YOUR_ORDER_REFERENCE>",
+        "deliveryAddress": {
+          "company": "<YOUR_COMPANY_NAME>",
+          "name": "<RECIPIENT_NAME>",
+          "email": "<RECIPIENT_EMAIL>",
+          "street": "<YOUR_STREET_ADDRESS>",
+          "city": "<YOUR_CITY>",
+          "zip": "<YOUR_ZIP_CODE>",
+          "countryIso2": "<YOUR_COUNTRY_CODE>"
+        },
+        "positions": [
+          {
+            "sku": "<YOUR_SKU>",
+            "name": "<PRODUCT_NAME>",
+            "quantity": <QUANTITY>
+          },
+          {
+            "sku": "<YOUR_SKU>",
+            "name": "<PRODUCT_NAME>",
+            "quantity": <QUANTITY>
+          }
+        ]
+      }'
+    ```
+
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code and an `OrderPostResult` object.
+
+    ```json
+    {
+      "status": "OK",
+      "message": "Order created successfully",
+      "orderId": <YOUR_ORDER_ID>
+    }
+    ```
+
+    Capture the `orderId` from the response. You need this ID to track the order status later.
+  </Tab>
+</Tabs>
+
+<Tip>
+  **Required fields:** `sellerId`, `orderIdentifier`, `orderReference`, `deliveryAddress`, and `positions` are required. You can find the full schema including optional fields in the [API Reference](/api-reference/#tag/orders).
+</Tip>
+
+## Next steps
+
+Now that you have created the order, the warehouse team receives the Pick & Pack instruction automatically. Continue with these guides:
+
+<CardGroup cols={2}>
+  <Card
+    title="Track an Order"
+    icon="location-dot"
+    href="/docs/guides/main-flow/track-order"
+  >
+    Monitor order status and retrieve tracking information when the order is shipped.
+  </Card>
+
+  <Card
+    title="Manage Webhooks"
+    icon="bell"
+    href="/docs/guides/main-flow/manage-webhooks"
+  >
+    Set up webhooks to receive automatic notifications when order status changes or tracking numbers are generated.
+  </Card>
+</CardGroup>
+
