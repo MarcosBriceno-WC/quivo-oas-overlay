@@ -1,6 +1,6 @@
 ---
 title: Manage Webhooks
-description: Configure and manage event subscriptions via the API
+ogDescription: Configure and manage event subscriptions via the API
 ---
 
 Webhooks allow your system to receive real-time notifications from Quivo. Instead of polling for status changes, Quivo pushes data to your server via an HTTP POST request whenever a specific event occurs.
@@ -11,18 +11,16 @@ Webhooks allow your system to receive real-time notifications from Quivo. Instea
 
 ## Prerequisites
 
-Before you start, ensure you have:
+Before you start, make sure you have the following:
 
-- **API Credentials:** Your API key and a valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain a session token.
+- **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
+- **API Key:** Your static API key provided by Quivo.
 - **Seller ID:** The unique integer ID for your merchant account.
 - **A Public URL:** A secure endpoint (HTTPS) on your server capable of receiving JSON POST requests.
-- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
 ## Create a subscription
 
-To start receiving notifications, you must tell Quivo which entity to watch and where to send the data via the `POST /subscriptions` endpoint:
-
-You need to construct a JSON payload containing your `sellerId`, the entity type, and the endpoint configuration.
+Create a subscription when you want to start receiving real-time notifications about specific events. You must tell Quivo which entity to watch and where to send the data via the [`POST /subscriptions` endpoint](/api-reference/#tag/subscriptions).
 
 The following table lists the supported entities and the events that trigger them:
 
@@ -32,89 +30,123 @@ The following table lists the supported entities and the events that trigger the
 | `SHIPMENTS` | Shipment creation, tracking updates (for example, `IN_TRANSIT`, `DELIVERED`). |
 | `INBOUNDS` | Inbound shipment status changes. |
 | `RETURNS` | When a return is created or received at the warehouse. |
+| `INVOICES` | Invoice creation and updates. |
 
-The following example shows how to subscribe to `SHIPMENTS` updates. Replace the placeholder values with your actual data.
+You need to construct a JSON payload containing your `sellerId`, the entity type, and the endpoint configuration.
 
-```bash
-curl -X POST "${BASE_URL}/subscriptions" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "sellerId": <YOUR_SELLER_ID>,
-    "entity": "SHIPMENTS",
-    "endpoint": {
-      "type": "WEBHOOK",
-      "url": "<YOUR_WEBHOOK_URL>"
+The following example shows how to subscribe to `SHIPMENTS` updates:
+
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X POST "${BASE_URL}/subscriptions" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "sellerId": <YOUR_SELLER_ID>,
+        "entity": "SHIPMENTS",
+        "endpoint": {
+          "type": "WEBHOOK",
+          "url": "<YOUR_WEBHOOK_URL>"
+        }
+      }'
+    ```
+    
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests and replace the placeholders with your actual data.
+    </Note>
+
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code. The API returns the created subscription object with a unique `uuid`. Save this UUID. You need it to delete the subscription later.
+
+    ```json
+    {
+      "uuid": "<YOUR_SUBSCRIPTION_UUID>",
+      "sellerId": <YOUR_SELLER_ID>,
+      "entity": "SHIPMENTS",
+      "endpoint": {
+        "type": "WEBHOOK",
+        "url": "<YOUR_WEBHOOK_URL>"
+      }
     }
-  }'
-```
-
-
-If successful, the API returns the created subscription object with a unique `uuid`. Save this UUID. You need it to delete the subscription later.
-
-```json
-{
-  "uuid": "<YOUR_SUBSCRIPTION_UUID>",
-  "sellerId": <YOUR_SELLER_ID>,
-  "entity": "SHIPMENTS",
-  "endpoint": {
-    "type": "WEBHOOK",
-    "url": "<YOUR_WEBHOOK_URL>"
-  }
-}
-```
+    ```
+  </Tab>
+</Tabs>
 
 ## List active subscriptions
 
-To see all webhooks currently configured for your account, use the GET method via the `GET /subscriptions` endpoint:
+List subscriptions when you need to review all webhooks currently configured for your account or find a subscription UUID. Use the [`GET /subscriptions` endpoint](/api-reference/#tag/subscriptions).
 
-The following example shows how to list all active subscriptions. Replace the placeholder values with your actual data.
+The following example shows how to list all active subscriptions:
 
-```bash
-curl -X GET "${BASE_URL}/subscriptions" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>"
-```
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X GET "${BASE_URL}/subscriptions" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>"
+    ```
 
-The response returns an array of all active subscriptions. The following example shows the structure of the response:
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests and replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code. The response returns an array of all active subscriptions:
 
-```json
-[
-  {
-    "uuid": "<YOUR_SUBSCRIPTION_UUID>",
-    "sellerId": <YOUR_SELLER_ID>,
-    "entity": "SHIPMENTS",
-    "endpoint": {
-      "type": "WEBHOOK",
-      "url": "<YOUR_WEBHOOK_URL>"
-    }
-  },
-  {
-    "uuid": "<YOUR_SUBSCRIPTION_UUID>",
-    "sellerId": <YOUR_SELLER_ID>,
-    "entity": "ORDERS",
-    "endpoint": {
-      "type": "WEBHOOK",
-      "url": "<YOUR_WEBHOOK_URL>"
-    }
-  }
-]
-```
+    ```json
+    [
+      {
+        "uuid": "<YOUR_SUBSCRIPTION_UUID>",
+        "sellerId": <YOUR_SELLER_ID>,
+        "entity": "SHIPMENTS",
+        "endpoint": {
+          "type": "WEBHOOK",
+          "url": "<YOUR_WEBHOOK_URL>"
+        }
+      },
+      {
+        "uuid": "<YOUR_SUBSCRIPTION_UUID>",
+        "sellerId": <YOUR_SELLER_ID>,
+        "entity": "ORDERS",
+        "endpoint": {
+          "type": "WEBHOOK",
+          "url": "<YOUR_WEBHOOK_URL>"
+        }
+      }
+    ]
+    ```
+  </Tab>
+</Tabs>
 
 ## Delete a subscription
 
-If you no longer want to receive notifications for a specific event, delete the subscription using its UUID via the `DELETE /subscriptions/{uuid}` endpoint:
+Delete a subscription when you no longer want to receive notifications for a specific event. Use the subscription UUID obtained when you created it or listed subscriptions. Delete it via the [`DELETE /subscriptions/{uuid}` endpoint](/api-reference/#tag/subscriptions).
 
-The following example shows how to delete a subscription using its `uuid`. Replace the placeholder values with your actual data.
+The following example shows how to delete a subscription using its `uuid`:
 
-```bash
-curl -X DELETE "${BASE_URL}/subscriptions/<YOUR_SUBSCRIPTION_UUID>" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>"
-```
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X DELETE "${BASE_URL}/subscriptions/<YOUR_SUBSCRIPTION_UUID>" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>"
+    ```
 
-The response returns a `200 OK` or `204 No Content` response indicating the webhook was successfully removed.
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests and replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful deletion returns a `200 OK` or `204 No Content` status code with no response body:
+
+    ```http
+    HTTP/1.1 204 No Content
+    ```
+  </Tab>
+</Tabs>
 
 
 ## Next steps

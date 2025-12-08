@@ -1,84 +1,88 @@
 ---
 title: Create a Fulfillment Order
-description: Programmatically submit a new fulfillment order to the Quivo Connector using the REST API
+ogDescription: Programmatically submit a new fulfillment order to the Quivo Connector using the REST API
 ---
 
-By the end of this guide, you have successfully triggered a "Pick & Pack" process in the warehouse for your product.
+This guide shows you how to trigger a "Pick & Pack" process in the warehouse for your product.
 
 ## Prerequisites
 
 Before you start, make sure you have the following:
 
-- **Authentication Token:** A valid Bearer token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
-- **Seller ID:** The unique integer ID for your merchant account. Use `GET /sellers` to find it.
-- **Product SKU:** You must have created at least one product in the system via the endpoint `POST /articles` before you can order it.
-- **Base URL:** Replace `${BASE_URL}` with your environment URL.
+- **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
+- **Seller ID:** The unique integer ID for your merchant account. Use the [`GET /sellers` endpoint](/api-reference/#tag/sellers) in the API Reference to find it.
+- **Product SKU:** You must have created at least one product in the system via the [`POST /articles` endpoint](/api-reference/#tag/articles) before you can order it.
 
-## Prepare the order payload
+## Create the order request
 
-To create an order, construct a JSON object that matches the `OrderPost` schema.
+To create an order, construct a JSON object that matches the `OrderPost` schema using the [`POST /orders` endpoint](/api-reference/#tag/orders).
 
-You must provide four main components in the payload:
+You must provide four main fields in the payload:
 
-1. **Seller Context:** Identifies the merchant account.
-2. **Identifiers:** Unique IDs to track the order and prevent duplicates.
-3. **Recipient:** The destination for the package (`deliveryAddress`).
-4. **Content:** The list of items to ship (`positions`).
+1. **Seller Context:** Identifies the merchant account (`sellerId`).
+2. **Order Identifiers:** Unique IDs to track the order and prevent duplicates (`orderIdentifier` and `orderReference`).
+3. **Delivery Address:** The destination for the package (`deliveryAddress`).
+4. **Order Positions:** The list of items to ship (`positions`), including SKUs, names, and quantities.
 
-The following example shows a complete order request payload. Replace the placeholder values with your actual data.
+The following example shows an order payload with all required fields:
 
-```json
-{
-  "sellerId": <YOUR_SELLER_ID>,
-  "orderIdentifier": "<YOUR_ORDER_IDENTIFIER>",
-  "orderReference": "<YOUR_ORDER_REFERENCE>",
-  "deliveryAddress": {
-    "company": "<YOUR_COMPANY_NAME>",
-    "name": "<RECIPIENT_NAME>",
-    "email": "<RECIPIENT_EMAIL>",
-    "street": "<YOUR_STREET_ADDRESS>",
-    "city": "<YOUR_CITY>",
-    "zip": "<YOUR_ZIP_CODE>",
-    "countryIso2": "<YOUR_COUNTRY_CODE>"
-  },
-  "positions": [
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X POST "${BASE_URL}/orders" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "sellerId": <YOUR_SELLER_ID>,
+        "orderIdentifier": "<YOUR_ORDER_IDENTIFIER>",
+        "orderReference": "<YOUR_ORDER_REFERENCE>",
+        "deliveryAddress": {
+          "company": "<YOUR_COMPANY_NAME>",
+          "name": "<RECIPIENT_NAME>",
+          "email": "<RECIPIENT_EMAIL>",
+          "street": "<YOUR_STREET_ADDRESS>",
+          "city": "<YOUR_CITY>",
+          "zip": "<YOUR_ZIP_CODE>",
+          "countryIso2": "<YOUR_COUNTRY_CODE>"
+        },
+        "positions": [
+          {
+            "sku": "<YOUR_SKU>",
+            "name": "<PRODUCT_NAME>",
+            "quantity": <QUANTITY>
+          },
+          {
+            "sku": "<YOUR_SKU>",
+            "name": "<PRODUCT_NAME>",
+            "quantity": <QUANTITY>
+          }
+        ]
+      }'
+    ```
+
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code and an `OrderPostResult` object.
+
+    ```json
     {
-      "sku": "<YOUR_SKU>",
-      "name": "<PRODUCT_NAME>",
-      "quantity": <QUANTITY>
-    },
-    {
-      "sku": "<YOUR_SKU>",
-      "name": "<PRODUCT_NAME>",
-      "quantity": <QUANTITY>
+      "status": "OK",
+      "message": "Order created successfully",
+      "orderId": <YOUR_ORDER_ID>
     }
-  ]
-}
-```
+    ```
 
+    Capture the `orderId` from the response. You need this ID to track the order status later.
+  </Tab>
+</Tabs>
 
-## Send the request
-
-Submit the payload to the `/orders` endpoint using `POST` following the example below. You must include both the `X-Api-Key` and the `Authorization` token in your headers.
-
-```bash
-curl -X POST "${BASE_URL}/orders" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '@payload.json'
-```
-
-When the request succeeds, the API returns a 200 OK status code and an `OrderPostResult` object.
-
-```json
-{
-  "status": "OK",
-  "message": "Order created successfully",
-  "orderId": <YOUR_ORDER_ID>
-}
-```
-Capture the `orderId` from the response. You need this ID to track the order status later.
+<Tip>
+  **Required fields:** `sellerId`, `orderIdentifier`, `orderReference`, `deliveryAddress`, and `positions` are required. You can find the full schema including optional fields in the [API Reference](/api-reference/#tag/orders).
+</Tip>
 
 ## Next steps
 

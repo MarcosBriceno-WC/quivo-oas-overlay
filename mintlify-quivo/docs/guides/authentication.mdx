@@ -1,55 +1,82 @@
 ---
 title: Authentication
-ogdescription: Learn how to authenticate your requests to the Quivo API
+ogDescription: Learn how to authenticate your requests to the Quivo API
 ---
 
-All requests to the Quivo API require authentication using a session token. This article will guide you trough:
-1. Obtaining a session token.
-2. Using a session token to authenticate requests.
+All requests to the Quivo API require authentication using a session token. This ensures that only authorized users can access your account data and perform operations on your behalf.
+
+This guide will walk you through the authentication process:
+1. **Obtaining a session token:** Exchange your API credentials (API key, username, and password) for a temporary session token via the `POST /login` endpoint.
+2. **Using the token:** Include the session token in the `Authorization` header of all subsequent API requests.
+
+Session tokens expire after one hour and must be refreshed when they expire. See the [Token expiration](#token-expiration) section for details on handling token refresh automatically.
 
 ## Prerequisites
 
 Before you start, make sure you have the following:
 
-- **API Key:** Your static API key provided by Quivo
+- **Static API Key:** Your static API key provided by Quivo. You can retrieve it from the Quivo Dashboard
 - **Username:** Your Quivo account username
 - **Password:** Your Quivo account password
-- **Base URL:** Replace `${BASE_URL}` with your environment URL.
 
-## Step 1: Obtain a session token
+## Obtain a session token
 
-You must authenticate every request to the Quivo API with a session token. Exchange your credentials for this token via the endpoint `POST /login`.
+Exchange your credentials for a session token via the `POST /login` endpoint.
 
-The token remains valid for **one hour**. After expiration, you need to generate a new token.
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X POST "${BASE_URL}/login" \
+      -H "Content-Type: application/json" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -d '{
+        "username": "<YOUR_USERNAME>",
+        "password": "<YOUR_PASSWORD>"
+      }'
+    ```
 
-Following the example below, replace the placeholder values with your actual data.
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code. The API returns a token string in the response:
 
-```bash
-curl -X POST "${BASE_URL}/login" \
-  -H "Content-Type: application/json" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -d '{
-    "username": "<YOUR_USERNAME>",
-    "password": "<YOUR_PASSWORD>"
-  }'
-```
+    ```json
+    {
+      "Token": "<YOUR_SESSION_TOKEN>"
+    }
+    ```
+  </Tab>
+</Tabs>
 
-The API returns a token string. You must use this token in the `Authorization` header for all subsequent API requests.
+## Use the token in requests
 
-## Step 2: Use the token in requests
+Include the token in the `Authorization` header of all API requests. You must also include your API key in the `X-Api-Key` header. The following example shows how to make an authenticated request using the [`GET /orders` endpoint](/api-reference/#tag/orders).
 
-Include the token in the `Authorization` header of all API requests. You must also include your API key in the `X-Api-Key` header.
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X GET "${BASE_URL}/orders" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>"
+    ```
 
-```bash
-curl -X GET "${BASE_URL}/orders" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>" \
-  -H "Content-Type: application/json"
-```
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful authenticated request returns the requested data. If authentication fails, you'll receive a `401 Unauthorized` error.
 
-<Tip >
-  Since tokens expire after one hour, your integration should verify the API response. If you receive a 401 Unauthorized error, your script should automatically repeat the login step to generate a new token.
-</Tip>
+    ```json
+    {
+      "orderId": <YOUR_ORDER_ID>,
+      "orderStatus": "<ORDER_STATUS>"
+    }
+    ```
+  </Tab>
+</Tabs>
 
 ## Token expiration
 
@@ -57,16 +84,14 @@ Session tokens expire after **1 hour**. When a token expires, you will receive a
 
 ### Handling token expiration
 
-When you receive a 401 error:
+When you receive a 401 error, your integration should automatically:
 
-1. **Automatically retry authentication:** Call `POST /login` again to obtain a new token
+1. **Retry authentication:** Call the `POST /login` endpoint again to obtain a new token
 2. **Retry the original request:** Use the new token to retry the request that failed
 
-
-## Troubleshooting
-
-- **401 Unauthorized:** Your token is invalid or has expired. Generate a new token using `POST /login`.
-- **400 Bad Request:** Check that you're including both `username` and `password` in the request body, and that the `X-Api-Key` header is present.
+<Tip>
+  Implement automatic token refresh in your integration to handle expiration seamlessly. Monitor API responses for `401 Unauthorized` errors and trigger re-authentication as needed.
+</Tip>
 
 ## Next steps
 

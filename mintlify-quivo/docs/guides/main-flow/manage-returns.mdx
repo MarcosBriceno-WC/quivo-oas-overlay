@@ -1,6 +1,6 @@
 ---
 title: Manage Returns
-description: Generate return labels for your customers and track returned items
+ogDescription: Generate return labels for your customers and track returned items
 ---
 
 Handling returns efficiently is crucial for customer satisfaction. This API allows you to programmatically generate a shipping label that your customer can use to send an item back to the Quivo warehouse.
@@ -9,108 +9,112 @@ Handling returns efficiently is crucial for customer satisfaction. This API allo
 
 Before you start, make sure you have the following:
 
-- **Authentication Token:** A valid Bearer token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
-- **Seller ID:** The unique integer ID for your merchant account. Use `GET /sellers` to find it.
-- **Shipping Service Group ID:** The ID representing the carrier/service you want to use for the return. Use `GET /shippingServiceGroups` to find it.
-- **Base URL:** Replace `${BASE_URL}` with your environment URL.
+- **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
+- **Seller ID:** The unique integer ID for your merchant account. Use the [`GET /sellers` endpoint](/api-reference/#tag/sellers) in the API Reference to find it.
+- **Shipping Service Group ID:** The ID representing the carrier/service you want to use for the return. Use the [`GET /shippingServiceGroups` endpoint](/api-reference/#tag/shippingServiceGroups) in the API Reference to find it.
 
 ## Book a return label
 
-To let a customer return an item, you must generate a shipping label for them via the endpoint: `POST /returnApp/book`
+To let a customer return an item, you must generate a shipping label for them via the [`POST /returnApp/book` endpoint](/api-reference/#tag/returnApp).
 
 You need to provide the "Ship From" address (your customer's house) and the weight of the package.
 
-The following example shows a complete return request payload. Replace the placeholder values with your actual data.
+The following example shows how to send a complete return request payload in one command:
 
-```json
-{
-  "requestUUID": "<YOUR_REQUEST_UUID>",
-  "hash": "<YOUR_SECURE_HASH>",
-  "reference": "<YOUR_REFERENCE>",
-  "grossWeightKG": <GROSS_WEIGHT_KG>,
-  "shipFrom": {
-    "name": "<CUSTOMER_NAME>",
-    "street": "<CUSTOMER_STREET_ADDRESS>",
-    "city": "<CUSTOMER_CITY>",
-    "zip": "<CUSTOMER_ZIP_CODE>",
-    "countryIso2": "<CUSTOMER_COUNTRY_CODE>",
-    "email": "<CUSTOMER_EMAIL>"
-  }
-}
-```
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X POST "${BASE_URL}/returnApp/book" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "requestUUID": "<YOUR_REQUEST_UUID>",
+        "hash": "<YOUR_SECURE_HASH>",
+        "reference": "<YOUR_REFERENCE>",
+        "grossWeightKG": <GROSS_WEIGHT_KG>,
+        "shipFrom": {
+          "name": "<CUSTOMER_NAME>",
+          "street": "<CUSTOMER_STREET_ADDRESS>",
+          "city": "<CUSTOMER_CITY>",
+          "zip": "<CUSTOMER_ZIP_CODE>",
+          "countryIso2": "<CUSTOMER_COUNTRY_CODE>",
+          "email": "<CUSTOMER_EMAIL>"
+        }
+      }'
+    ```
 
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests and replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code with a response containing the tracking number and URLs to the PDF label (`labelUrls`). You should email this link or file to your customer.
 
-## Send the request
-
-Send a POST request to the `/returnApp/book` endpoint with your payload. Include your API key and session token in the headers. Replace the placeholder values with your actual data.
-
-```bash
-curl -X POST "${BASE_URL}/returnApp/book" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '@return_payload.json'
-```
-
-The request should return a 200 OK status code with a response containing the tracking number and URLs to the PDF label (`labelUrls`). You should email this link or file to your customer.
-
-```json
-{
-  "status": "OK",
-  "trackingNumber": "<TRACKING_NUMBER>",
-  "labelUrls": [
-    "<LABEL_URL>"
-  ]
-}
-```
+    ```json
+    {
+      "status": "OK",
+      "trackingNumber": "<TRACKING_NUMBER>",
+      "labelUrls": [
+        "<LABEL_URL>"
+      ]
+    }
+    ```
+  </Tab>
+</Tabs>
 
 ## Track received returns
 
-When the package arrives back at the Quivo warehouse, the staff inspects it. You can list all received returns to see their status and condition via the endpoint: `GET /returns`
+When the package arrives back at the Quivo warehouse, the staff inspects it. You can list all received returns to see their status and condition via the [`GET /returns` endpoint](/api-reference/#tag/returns).
 
-The example below shows a request to get the latest returns.
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X GET "${BASE_URL}/returns?sort=created:desc" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>"
+    ```
 
-```bash
-curl -X GET "${BASE_URL}/returns?sort=created:desc" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>"
-```
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code. The response returns an array of `ReturnShipmentSummary` objects. The following example shows the structure of a return in the array:
 
-The response returns an array of `ReturnShipmentSummary` objects. The following example shows the structure of a return in the array:
-
-```json
-{
-  "returnShipmentId": <YOUR_RETURN_SHIPMENT_ID>,
-  "returnShipmentIdentifier": "<YOUR_RETURN_SHIPMENT_IDENTIFIER>",
-  "returnShipmentReference": "<YOUR_REFERENCE>",
-  "sellerId": <YOUR_SELLER_ID>,
-  "warehouseId": <YOUR_WAREHOUSE_ID>,
-  "orderId": <YOUR_ORDER_ID>,
-  "trackingNumber": "<TRACKING_NUMBER>",
-  "trackingLink": "<TRACKING_LINK>",
-  "receivedDate": "<YYYY-MM-DDTHH:mm:ssZ>",
-  "customerExamined": false,
-  "positions": [
+    ```json
     {
-      "sellerSku": "<YOUR_SKU>",
-      "warehouseSku": "<WAREHOUSE_SKU>",
-      "name": "<PRODUCT_NAME>",
-      "quantity": <QUANTITY>,
-      "classCode": "<CLASS_CODE>",
-      "reasonCode": "<REASON_CODE>"
+      "returnShipmentId": <YOUR_RETURN_SHIPMENT_ID>,
+      "returnShipmentIdentifier": "<YOUR_RETURN_SHIPMENT_IDENTIFIER>",
+      "returnShipmentReference": "<YOUR_REFERENCE>",
+      "sellerId": <YOUR_SELLER_ID>,
+      "warehouseId": <YOUR_WAREHOUSE_ID>,
+      "orderId": <YOUR_ORDER_ID>,
+      "trackingNumber": "<TRACKING_NUMBER>",
+      "trackingLink": "<TRACKING_LINK>",
+      "receivedDate": "<YYYY-MM-DDTHH:mm:ssZ>",
+      "customerExamined": false,
+      "positions": [
+        {
+          "sellerSku": "<YOUR_SKU>",
+          "warehouseSku": "<WAREHOUSE_SKU>",
+          "name": "<PRODUCT_NAME>",
+          "quantity": <QUANTITY>,
+          "classCode": "<CLASS_CODE>",
+          "reasonCode": "<REASON_CODE>"
+        }
+      ]
     }
-  ]
-}
-```
+    ```
+  
+    The response (`ReturnShipmentSummary`) contains critical information for processing refunds:
 
-### Understanding the return data
-
-The response (`ReturnShipmentSummary`) contains critical information for processing refunds:
-
-- `returnShipmentReference`: Matches the reference you provided (for example, `"<YOUR_REFERENCE>"`).
-- `positions`: Lists the items inside the box.
-- `customerExamined`: A boolean indicating if the warehouse has finished inspecting the item.
-- `reasonCode` / `classCode`: (If available) Details on why it was returned (for example, `"Damaged"`, `"Wrong Size"`) and its condition (for example, `"A-Stock"`, `"B-Stock"`).
+    - `returnShipmentReference`: Matches the reference you provided (for example, `"<YOUR_REFERENCE>"`).
+    - `positions`: Lists the items inside the box.
+    - `customerExamined`: A boolean indicating if the warehouse has finished inspecting the item.
+    - `reasonCode` / `classCode`: (If available) Details on why it was returned and its condition. These values are set by the warehouse during inspection.
+  </Tab>
+</Tabs>
 
 ## Next steps
 

@@ -1,138 +1,149 @@
 ---
 title: Send Inventory (Inbound)
-description: Notify the Quivo warehouse that you are sending a shipment of products (stock)
+ogDescription: Notify the Quivo warehouse that you are sending a shipment of products (stock)
 ---
 
-Before you can fulfill orders, you must physically send your products to a Quivo warehouse. This API flow creates an "Inbound" record, alerting the warehouse team to expect your delivery.
+To fulfill orders, you need inventory available in a Quivo warehouse. This API flow creates an "Inbound" record to notify the warehouse team that you are sending products, so they can plan for the arrival and process the inventory.
 
 ## Prerequisites
 
 Before you start, make sure you have the following:
 
-- **Authentication Token:** A valid Bearer token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
-- **Seller ID:** Your merchant ID. Use `GET /sellers` to find it.
-- **Warehouse ID:** The ID of the specific warehouse you are shipping to. Use `GET /warehouses` to list them.
-- **Product SKUs:** The items you are sending must already exist in the system. Use `GET /articles` to find them.
-- **Base URL:** Replace `${BASE_URL}` with your environment URL.
+- **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
+- **Seller ID:** Your merchant ID. Use the [`GET /sellers` endpoint](/api-reference/#tag/sellers) in the API Reference to find it.
+- **Warehouse ID:** The ID of the specific warehouse you are shipping to. Use the [`GET /warehouses` endpoint](/api-reference/#tag/warehouses) in the API Reference to list them.
+- **Product SKUs:** The items you are sending must already exist in the system. Use the [`GET /articles` endpoint](/api-reference/#tag/articles) in the API Reference to find them.
 
 ## Create the inbound request
 
-You must tell the warehouse exactly what is coming so they can plan for its arrival using the endpoint: `POST /inbounds`
+Create an inbound record when you are preparing to send products to a Quivo warehouse. You must tell the warehouse exactly what is coming so they can plan for its arrival using the [`POST /inbounds` endpoint](/api-reference/#tag/inbounds).
 
-Construct a payload that includes the delivery details, tracking information, origin address, and the positions (list of SKUs and quantities).
+The following example shows a complete inbound payload with all required fields and some common optional fields.
 
-The following example shows a complete inbound request payload. It includes all required fields plus optional information (like carrier). Replace the placeholder values with your actual data.
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X POST "${BASE_URL}/inbounds" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "sellerId": <YOUR_SELLER_ID>,
+        "warehouseId": <YOUR_WAREHOUSE_ID>,
+        "deliverySlipNumber": "<YOUR_DELIVERY_SLIP_NUMBER>",
+        "estimatedArrivalTime": "<YYYY-MM-DDTHH:mm:ssZ>",
+        "trackingNumber": "<YOUR_TRACKING_NUMBER>",
+        "carrier": "<YOUR_CARRIER>",
+        "deliveryInfo": {
+          "cargoType": "CARTON",
+          "quantity": <NUMBER_OF_CARTONS>
+        },
+        "inboundPositions": [
+          {
+            "sku": "<YOUR_SKU>",
+            "quantity": <QUANTITY>
+          },
+          {
+            "sku": "<YOUR_SKU>",
+            "quantity": <QUANTITY>
+          }
+        ],
+        "shipFrom": {
+          "company": "<YOUR_COMPANY_NAME>",
+          "address1": "<YOUR_STREET_ADDRESS>",
+          "city": "<YOUR_CITY>",
+          "country": "<YOUR_COUNTRY_CODE>",
+          "zip": "<YOUR_ZIP_CODE>"
+        }
+      }'
+    ```
 
-```json
-{
-  "sellerId": <YOUR_SELLER_ID>,
-  "warehouseId": <YOUR_WAREHOUSE_ID>,
-  "deliverySlipNumber": "<YOUR_DELIVERY_SLIP_NUMBER>",
-  "estimatedArrivalTime": "<YYYY-MM-DDTHH:mm:ssZ>",
-  "trackingNumber": "<YOUR_TRACKING_NUMBER>",
-  "carrier": "<YOUR_CARRIER>",
-  "deliveryInfo": {
-    "cargoType": "CARTON",
-    "quantity": <NUMBER_OF_CARTONS>
-  },
-  "inboundPositions": [
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code.
+
+    ```json
     {
-      "sku": "<YOUR_SKU>",
-      "quantity": <QUANTITY>
-    },
-    {
-      "sku": "<YOUR_SKU>",
-      "quantity": <QUANTITY>
+      "status": "OK",
+      "inboundId": <YOUR_INBOUND_ID>,
+      "message": "Inbound created successfully"
     }
-  ],
-  "shipFrom": {
-    "company": "<YOUR_COMPANY_NAME>",
-    "address1": "<YOUR_STREET_ADDRESS>",
-    "city": "<YOUR_CITY>",
-    "country": "<YOUR_COUNTRY_CODE>",
-    "zip": "<YOUR_ZIP_CODE>"
-  }
-}
-```
+    ```
 
-## Send the request
-
-Submit the payload to the `/inbounds` endpoint. You must include both the `X-Api-Key` and the `Authorization` token in your headers. Replace the placeholders with your actual API key and session token.
-
-```bash
-curl -X POST "${BASE_URL}/inbounds" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '@inbound_payload.json'
-```
-
-A successful request returns a 200 OK status.
-
-```json
-{
-  "status": "OK",
-  "inboundId": <YOUR_INBOUND_ID>,
-  "message": "Inbound created successfully"
-}
-```
+    <Tip>
+      **Important:** Save the `inboundId` returned in the response. You (or your logistics partner) may need to print this ID on the shipping label so the warehouse can identify the boxes when they arrive.
+    </Tip>
+  </Tab>
+</Tabs>
 
 <Tip>
-  **Important:** Save the `inboundId` returned in the response. You (or your logistics partner) may need to print this ID on the shipping label so the warehouse can identify the boxes when they arrive.
+  **Required fields:** `sellerId`, `warehouseId`, and `inboundPositions` are required. All other fields are optional. You can find the full schema for the inbound request in the [API Reference](/api-reference/#tag/inbounds).
 </Tip>
 
 ## Track inbound status
 
-Once your shipment arrives, the warehouse team starts scanning the items. You can check the status of this process via the API via the endpoint: `GET /inbounds/{inboundId}`
+After creating an inbound record, use this endpoint to monitor the processing status. Once your shipment arrives, the warehouse team starts scanning the items. Check the status of this process via the API using the [`GET /inbounds/{inboundId}` endpoint](/api-reference/#tag/inbounds).
 
-```bash
-curl -X GET "${BASE_URL}/inbounds/<YOUR_INBOUND_ID>" \
-  -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
-  -H "Authorization: <YOUR_SESSION_TOKEN>"
-```
+<Tabs>
+  <Tab title="Request">
+    ```bash
+    curl -X GET "${BASE_URL}/inbounds/<YOUR_INBOUND_ID>" \
+      -H "X-Api-Key: <YOUR_STATIC_API_KEY>" \
+      -H "Authorization: <YOUR_SESSION_TOKEN>"
+    ```
 
-The response returns a `InboundGet` object containing detailed information about the inbound. The following example shows the structure of the response:
+    <Note>
+      Replace `${BASE_URL}` with your environment URL before running requests. Replace the placeholders with your actual data.
+    </Note>
+  </Tab>
+  <Tab title="Response">
+    A successful request returns a `200 OK` status code. The response returns an `InboundGet` object with details about the inbound:
 
-```json
-{
-  "id": <YOUR_INBOUND_ID>,
-  "sellerId": <YOUR_SELLER_ID>,
-  "warehouseId": <YOUR_WAREHOUSE_ID>,
-  "shopId": <YOUR_SHOP_ID>,
-  "inboundStatus": "PROCESSING",
-  "deliverySlipNumber": "<YOUR_DELIVERY_SLIP_NUMBER>",
-  "estimatedArrivalTime": "<YYYY-MM-DDTHH:mm:ssZ>",
-  "trackingNumber": "<YOUR_TRACKING_NUMBER>",
-  "carrier": "<YOUR_CARRIER>",
-  "created": "<YYYY-MM-DDTHH:mm:ssZ>",
-  "completedAt": "<YYYY-MM-DDTHH:mm:ssZ>",
-  "shipFrom": {
-    "company": "<YOUR_COMPANY_NAME>",
-    "address1": "<YOUR_STREET_ADDRESS>",
-    "city": "<YOUR_CITY>",
-    "country": "<YOUR_COUNTRY_CODE>",
-    "zip": "<YOUR_ZIP_CODE>"
-  },
-  "deliveryInfo": {
-    "cargoType": "CARTON",
-    "quantity": <NUMBER_OF_CARTONS>
-  },
-  "inboundPositions": [
+    ```json
     {
-      "sku": "<YOUR_SKU>",
-      "quantity": <QUANTITY>
+      "id": <YOUR_INBOUND_ID>,
+      "sellerId": <YOUR_SELLER_ID>,
+      "warehouseId": <YOUR_WAREHOUSE_ID>,
+      "shopId": <YOUR_SHOP_ID>,
+      "inboundStatus": "PROCESSING",
+      "deliverySlipNumber": "<YOUR_DELIVERY_SLIP_NUMBER>",
+      "estimatedArrivalTime": "<YYYY-MM-DDTHH:mm:ssZ>",
+      "trackingNumber": "<YOUR_TRACKING_NUMBER>",
+      "carrier": "<YOUR_CARRIER>",
+      "created": "<YYYY-MM-DDTHH:mm:ssZ>",
+      "completedAt": "<YYYY-MM-DDTHH:mm:ssZ>",
+      "shipFrom": {
+        "company": "<YOUR_COMPANY_NAME>",
+        "address1": "<YOUR_STREET_ADDRESS>",
+        "city": "<YOUR_CITY>",
+        "country": "<YOUR_COUNTRY_CODE>",
+        "zip": "<YOUR_ZIP_CODE>"
+      },
+      "deliveryInfo": {
+        "cargoType": "CARTON",
+        "quantity": <NUMBER_OF_CARTONS>
+      },
+      "inboundPositions": [
+        {
+          "sku": "<YOUR_SKU>",
+          "quantity": <QUANTITY>
+        }
+      ]
     }
-  ]
-}
-```
+    ```
 
-Look for the `inboundStatus` field in the response to see the current status of the inbound:
+    Look for the `inboundStatus` field in the response to see the current status of the inbound:
 
-- `PENDING`: The inbound request is pending processing.
-- `CREATED`: You have notified Quivo, but the package hasn't arrived.
-- `PROCESSING`: The warehouse is currently counting and booking the stock.
-- `COMPLETED`: All items are booked into inventory and ready to be sold. If the inbound is completed, you can start the next step to create the order.
-- `CANCELLED`: The inbound has been cancelled.
+    - `PENDING`: The inbound request is pending processing.
+    - `CREATED`: You have notified Quivo, but the package hasn't arrived.
+    - `PROCESSING`: The warehouse is currently counting and booking the stock.
+    - `COMPLETED`: All items are booked into inventory and ready to be sold. If the inbound is completed, you can start the next step to create the order.
+    - `CANCELLED`: The inbound has been cancelled.
+  </Tab>
+</Tabs>
 
 ## Next steps
 
