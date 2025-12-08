@@ -1,32 +1,99 @@
 ---
-title: 'overview'
+title: API Overview
+ogDescription: Learn about the Quivo API and how to get started with integration
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+Welcome to the Quivo API Developer Portal. We offer a comprehensive REST API designed to provide seamless integration with our logistics and fulfillment platform. This documentation is structured to support your integration journey, from initial setup to detailed implementation.
 
-## Welcome
+## Your Path to Integration
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+We recommend following these steps for a smooth integration experience:
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+1. **Start with Authentication** to understand how to authenticate your requests. This is the essential first step before making any API calls.
+2. **Follow the Quickstart Guides** to learn the main workflows for managing inventory, orders, and shipments.
+3. **Explore the API Reference** to find the specific endpoints you need for your application.
+
+<CardGroup cols={2}>
+  <Card
+    title="Get Started"
+    icon="rocket"
+    href="/docs/guides/authentication"
+  >
+    **Start here if you are new.** This section covers the essential first steps for a successful integration, including the authentication process and how to obtain session tokens.
+  </Card>
+
+  <Card
+    title="API Reference"
+    icon="book"
+    href="/api-reference/introduction"
+  >
+    **Dive into the technical details.** Explore all available endpoints, detailing required parameters, request and response examples, and error codes. Use this when you are ready to build.
+  </Card>
+</CardGroup>
+
+## Quickstart Guides
+
+The following guides walk you through the main workflows for integrating with Quivo:
+
+<CardGroup cols={2}>
+  <Card
+    title="Send Inventory"
+    icon="warehouse"
+    href="/docs/guides/main-flow/send-inventory"
+  >
+    Notify the Quivo warehouse that you are sending a shipment of products. Learn how to create inbound records and manage inventory shipments.
+  </Card>
+
+  <Card
+    title="Create a Fulfillment Order"
+    icon="shopping-cart"
+    href="/docs/guides/main-flow/create-order"
+  >
+    Programmatically submit fulfillment orders to the Quivo Connector. Trigger the pick and pack process for your products.
+  </Card>
+
+  <Card
+    title="Track an Order"
+    icon="location-dot"
+    href="/docs/guides/main-flow/track-order"
+  >
+    Retrieve current status and tracking information for orders. Monitor shipment progress and delivery status.
+  </Card>
+
+  <Card
+    title="Manage Returns"
+    icon="rotate-left"
+    href="/docs/guides/main-flow/manage-returns"
+  >
+    Generate return labels and track returned items. Learn how to process customer returns through the API.
+  </Card>
+
+  <Card
+    title="Manage Webhooks"
+    icon="bell"
+    href="/docs/guides/main-flow/manage-webhooks"
+  >
+    Configure event subscriptions for real-time notifications. Set up webhooks to receive updates about order status changes and other events.
+  </Card>
+</CardGroup>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API requests require authentication using:
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+1. **Static API Key:** Obtained through the Quivo Dashboard. Include it in the `X-Api-Key` header.
+2. **Session Token:** Obtained through the `POST /login` endpoint, valid for one hour. Include it in the `Authorization` header.
+
+See the [Authentication guide](/docs/guides/authentication) for detailed instructions on obtaining and using session tokens.
+
+## Getting Help
+
+If you are not finding what you are looking for, or you get stuck, we are here to help. Reach out to our Developer Support Team.
+
+<Card
+  title="Need Assistance?"
+  icon="question-circle"
+  href="<YOUR_CONTACT_URL>"
+>
+  Contact our support team for help with integration questions, API issues, or general guidance. Visit our contact page to get in touch.
+</Card>
