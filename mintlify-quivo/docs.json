@@ -25,12 +25,6 @@
             ]
           },
           {
-            "group": "Essentials",
-            "pages": [
-              "docs/guides/authentication"
-            ]
-          },
-          {
             "group": "Quickstart",
             "pages": [
               "docs/guides/main-flow/send-inventory",
@@ -46,9 +40,10 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Introduction",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/authentication"
             ]
           },
           {

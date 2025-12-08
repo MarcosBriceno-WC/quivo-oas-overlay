@@ -1,15 +1,18 @@
 ---
 title: Authentication
-ogDescription: Learn how to authenticate your requests to the Quivo API
+og:description: Learn how to authenticate your requests to the Quivo API
 ---
 
 All requests to the Quivo API require authentication using a session token. This ensures that only authorized users can access your account data and perform operations on your behalf.
 
-This guide will walk you through the authentication process:
+The authentication process consists of the following steps:
+
 1. **Obtaining a session token:** Exchange your API credentials (API key, username, and password) for a temporary session token via the `POST /login` endpoint.
 2. **Using the token:** Include the session token in the `Authorization` header of all subsequent API requests.
 
+<Note>
 Session tokens expire after one hour and must be refreshed when they expire. See the [Token expiration](#token-expiration) section for details on handling token refresh automatically.
+</Note>
 
 ## Prerequisites
 
@@ -19,7 +22,7 @@ Before you start, make sure you have the following:
 - **Username:** Your Quivo account username
 - **Password:** Your Quivo account password
 
-## Obtain a session token
+## Step 1: Obtain a session token
 
 Exchange your credentials for a session token via the `POST /login` endpoint.
 
@@ -50,7 +53,7 @@ Exchange your credentials for a session token via the `POST /login` endpoint.
   </Tab>
 </Tabs>
 
-## Use the token in requests
+## Step 2: Use the token in requests
 
 Include the token in the `Authorization` header of all API requests. You must also include your API key in the `X-Api-Key` header. The following example shows how to make an authenticated request using the [`GET /orders` endpoint](/api-reference/#tag/orders).
 

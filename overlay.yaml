@@ -249,10 +249,10 @@ actions:
     description: ADD ENDPOINT DESCRIPTION HERE
 - target: $.paths./orders.get
   update:
-    description: ADD ENDPOINT DESCRIPTION HERE
+    description: This request retrieves a paginated list of orders that supports query, sorting, and pagination parameters to filter and structure the results.
 - target: $.paths./orders.post
   update:
-    description: ADD ENDPOINT DESCRIPTION HERE
+    description: Submits a new order for processing, including essential details like delivery address, order identifier, and item positions.
 - target: $.paths./orders/attachments/upload.post
   update:
     description: ADD ENDPOINT DESCRIPTION HERE
