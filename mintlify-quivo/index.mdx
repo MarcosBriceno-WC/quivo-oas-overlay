@@ -1,97 +1,75 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "QUIVO Docs"
+description: "The official documentation for QUIVO."
+mode: "custom" # Use the custom layout for a full-page design
 ---
 
-## Setting up
+import { PageWrapper, HomeCard } from "/snippets/home.jsx";
 
-Get your documentation site up and running in minutes.
+<div className="w-full flex justify-center">
+      <div className="max-w-[1376px] w-full flex flex-col items-center text-center px-4 gap-[31px] mt-[144px] mb-[54px]">
+        {/* Logo */}
+        <img noZoom src="/images/homepage/logo.svg" alt="quivo Logo" className=" dark:hidden" />
+        <img noZoom src="/images/homepage/darklogo.svg" alt="quivo Logo Dark" className=" hidden dark:block" />
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+        {/* Subtitle */}
+        <p className="font-[Hanken_Grotesk] text-xl text-dark-grey dark:text-white max-w-[804px] leading-[41px]">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+        </p>
+      </div>
+    </div>
 
-## Make it yours
+<div className="w-full flex justify-center px-4">
+      <div className="w-full max-w-[1376px]">
+<Columns cols={3}>
 
-Design a docs site that looks great and empowers your users.
+<a
+      href="/docs/guides/overview"
+      className="flex flex-col max-h-[285px] border border-zinc-200 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900"
+    >
+      <div className="">
+        <img src="/images/homepage/card1.svg" alt="Overview" noZoom className="m-0"/>
+      </div>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
+      {/* Text area */}
+      <div className="p-[20px] gap[9px]">
+        <p className="mt-0 text-base font-bold dark:text-zinc-100">Overview</p>
+        <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Explore and understand the available tools to enhance your responses</p>
+      </div>
+    </a>
+
+    <a
+      href="/docs/guides/main-flow/send-inventory"
+      className="flex flex-col max-h-[285px] border border-zinc-200 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900"
+    >
+      {/* Image (light/dark swap) */}
+      <div className="relative w-full">
+        <img src="/images/homepage/card2.svg" alt="Overview" noZoom className="m-0"/>
+      </div>
+
+      {/* Text area */}
+      <div className="p-[20px] gap[9px]">
+        <h3 className="mt-0 text-base font-bold dark:text-zinc-100">Quickstart</h3>
+        <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Explore and understand the available tools to enhance your responses</p>
+      </div>
+    </a>
+
+  <a
+      href="/api-reference/introduction"
+      className="flex flex-col max-h-[285px] border border-zinc-200 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900"
+    >
+      {/* Image (light/dark swap) */}
+      <div className="relative w-full">
+        <img src="/images/homepage/card3.svg" alt="Overview" noZoom className="m-0" />
+      </div>
+
+      {/* Text area */}
+      <div className="p-[20px] gap[9px]">
+        <h3 className="mt-0 text-base font-bold dark:text-zinc-100">API Reference</h3>
+        <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Explore and understand the available tools to enhance your responses</p>
+      </div>
+    </a>
 </Columns>
+      </div>
+    </div>
 
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
