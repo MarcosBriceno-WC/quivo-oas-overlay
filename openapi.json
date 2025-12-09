@@ -3558,7 +3558,7 @@
           "orders"
         ],
         "summary": "Search for orders",
-        "description": "ADD ENDPOINT DESCRIPTION HERE",
+        "description": "This request retrieves a paginated list of orders that supports query, sorting, and pagination parameters to filter and structure the results.",
         "operationId": "orderGet",
         "parameters": [
           {
@@ -3644,7 +3644,7 @@
           }
         },
         "x-codegen-request-body-name": "body",
-        "description": "ADD ENDPOINT DESCRIPTION HERE"
+        "description": "Submits a new order for processing, including essential details like delivery address, order identifier, and item positions."
       }
     },
     "/orders/attachments/upload": {
