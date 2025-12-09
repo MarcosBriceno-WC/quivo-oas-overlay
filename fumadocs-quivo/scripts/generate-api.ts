@@ -3,7 +3,7 @@ import { generateFiles } from 'fumadocs-openapi';
 import { createOpenAPI } from 'fumadocs-openapi/server';
 
 const openapi = createOpenAPI({
-  input: ['../content/docs/api-reference/openapi.json'], 
+  input: ['../public/openapi.json'], 
 });
 
 void generateFiles({
