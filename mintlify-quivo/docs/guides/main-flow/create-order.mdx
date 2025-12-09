@@ -10,12 +10,12 @@ This guide shows you how to trigger a "Pick & Pack" process in the warehouse for
 Before you start, make sure you have the following:
 
 - **Session Token:** A valid session token. See the [Authentication guide](/essentials/authentication) to learn how to obtain one.
-- **Seller ID:** The unique integer ID for your merchant account. Use the [`GET /sellers` endpoint](/api-reference/#tag/sellers) in the API Reference to find it.
-- **Product SKU:** You must have created at least one product in the system via the [`POST /articles` endpoint](/api-reference/#tag/articles) before you can order it.
+- **Seller ID:** The unique integer ID for your merchant account. Use the [`GET /sellers` endpoint](/api/orders/get-sellers) in the API Reference to find it.
+- **Product SKU:** You must have created at least one product in the system via the [`POST /articles` endpoint](/api/orders/create-article) before you can order it.
 
 ## Create the order request
 
-To create an order, construct a JSON object that matches the `OrderPost` schema using the [`POST /orders` endpoint](/api-reference/#tag/orders).
+To create an order, construct a JSON object that matches the `OrderPost` schema using the [`POST /orders` endpoint](/api/orders/create-order).
 
 You must provide four main fields in the payload:
 
